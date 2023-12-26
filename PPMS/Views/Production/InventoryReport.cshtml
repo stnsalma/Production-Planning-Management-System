@@ -1,0 +1,2095 @@
+﻿@using System.Diagnostics
+@using System.Web.Mvc.Html
+@using PPMS.DAL.DbModel
+@model PPMS.ViewModels.Production.VmProductionPlan
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>InventoryReport</h2>*@
+
+<script src="~/Scripts/moment.js"></script>
+
+<script src="~/Content/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+<link href="~/Content/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+
+
+@*datatable *@
+<link href="~/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet" type="text/css" id="style_color" />
+<link href="~/assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
+@*datatable *@
+<script src="~/Scripts/jquery.table2excel.js"></script>
+<link href="~/Content/loadingText.css" rel="stylesheet" />
+<style>
+    .DTFC_LeftBodyWrapper {
+        position: relative;
+        top: -11px !important;
+        left: 0px;
+        overflow: hidden;
+        height: 530px;
+    }
+    
+    .page-header-fixed .page-container {
+        margin-top: 0px;
+    }
+
+    .navbar-fixed-top {
+        position: relative;
+    }
+    .myDatepicker3 {
+        z-index: 9999;
+    }
+</style>
+<div class="note note-success">
+    <p style="color: green;font-size: 20px;"> Handset Inventory Report </p>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+
+                    <span class="caption-subject #569450 sbold uppercase">ALL LISTS</span>
+                </div>
+            </div>
+            <div class="portlet box #E2E8E4">
+
+                <div class="portlet-body">
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <div class="col-lg-3">Current Month & Year :</div>
+                            <div class="col-lg-9">
+                                <input class="form-control myDatepicker3" id="myDatepicker3" value="" style="float: left" type="text" readonly="readonly" />
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="col-lg-3">Model :</div>
+                            <div class="col-lg-9">
+                                @if (ViewBag.Projects != null)
+                                {
+                                    @Html.DropDownListFor(model => model.ProjectName, new SelectList(ViewBag.Projects, "Value", "Text"), new { @class = "form-control dropForProject ddChosen", id = "dropForProject", style = "text-align: center;" })
+
+                                }
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="col-lg-3">Category :</div>
+                            <div class="col-lg-4">
+                                @if (ViewBag.AllCategory != null)
+                                {
+
+                                    @Html.DropDownListFor(model => model.Category, new SelectList(ViewBag.AllCategory, "Value", "Text"), new { @class = "DDDCategory1 form-control ddChosen", @id = "DDDCategory", style = "text-align: center;" })
+
+                                }
+                            </div> 
+                            <div class="col-lg-5">
+                                @*<input type="button" id="btnforname" class="btn sbold uppercase btn-outline blue" value="Load Project" onclick="location.href='@Url.Action("SwQcSpecification", "Software")?projectId=' + $('option:selected', $('#ProjectMasterId')).val()  " />+ '&AssignId=@Model.SwQcAssignModels[0].SwQcAssignId'*@
+                                @*<input type="button" id="btnForSearch" class="btn sbold uppercase btn-outline blue" value="Load" onclick="location.href='@Url.Action("InventoryReport", "Production")?planId=' + $('option:selected', $('#dropForProject')).val()+'&category=' + $('option:selected', $('#DDDCategory')).text()+'&planName=' + $('option:selected', $('#dropForProject')).text()" />*@
+                                @*<input type="button" id="btnForSearch" class="btn sbold uppercase btn-outline blue" value="Load" onclick="location.href='@Url.Action("InventoryReport", "Production")?PlanId=' + $('option:selected', $('#dropForProject')).val()+'&category=' + $('option:selected', $('#DDDCategory')).text()" />*@
+                                <input type="button" id="btnForSearch" class="btn sbold uppercase btn-outline blue" value="Load" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="col-lg-12">
+                    <div class="caption font-dark">
+                        <i class="icon-settings font-dark"></i>
+                        <span class="caption-subject bold uppercase">All Planning for selected project</span>
+                    </div>
+                    <div class="tools"> </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable smtDiv" id="smtDiv" style="overflow: auto;display: none">
+                    <table class="table table-bordered table-striped table-condensed flip-content tblForSmt" id="tblForSmt">
+
+                        <tbody id="tBodyForSmt" class="tBodyForSmt">
+                            <tr>
+                                <td rowspan="3" style="text-align: center; color: brown;font-weight: bold">Model</td>
+                                <td colspan="12" style="text-align: center; color: brown; font-weight: bold">
+                                    SMT
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Store Soft Receive
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    All Iqc Test
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Trial Production
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Mass Production
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <br/><br/>
+                <div class="table-scrollable housingDiv" id="housingDiv" style="overflow: auto;display: none">
+                    <table class="table table-bordered table-striped table-condensed flip-content tblForHousing" id="tblForHousing">
+
+                        <tbody id="tBodyForHousing" class="tBodyForHousing">
+                            <tr>
+                                <td rowspan="3" style="text-align: center; color: brown;font-weight: bold">Model</td>
+                                <td colspan="15" style="text-align: center; color: brown; font-weight: bold">
+                                    HOUSING
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Store Soft Receive
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    All Iqc Test
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Trial Production
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Reliability Test
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Mass Production
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <br/><br/>
+                <div class="table-scrollable batteryDiv" id="batteryDiv" style="overflow: auto;display: none">
+                    <table class="table table-bordered table-striped table-condensed flip-content tblForBattery" id="tblForBattery">
+
+                        <tbody id="tBodyForBattery" class="tBodyForBattery">
+                            <tr>
+                                <td rowspan="3" style="text-align: center; color: brown;font-weight: bold">Model</td>
+                                <td colspan="18" style="text-align: center; color: brown; font-weight: bold">
+                                    BATTERY
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Store Soft Receive
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    All Iqc Test
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Trial Production
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Reliability Test
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Mass Production
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Aging Test
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br/><br/>
+                <div class="table-scrollable assemblyDiv" id="assemblyDiv" style="overflow: auto;display: none">
+                    <table class="table table-bordered table-striped table-condensed flip-content tblForAssembly" id="tblForAssembly">
+
+                        <tbody id="tBodyForAssembly" class="tBodyForAssembly">
+                            <tr>
+                                <td rowspan="3" style="text-align: center; color: brown;font-weight: bold">Model</td>
+                                <td colspan="21" style="text-align: center; color: brown; font-weight: bold">
+                                    ASSEMBLY
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Store Soft Receive
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    All Iqc Test
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Trial Production
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Software Confirmation
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Rnd Confirmation
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Assembly Production
+                                </td>
+                                <td colspan="3" style="text-align: center; color: blueviolet; font-weight: bold">
+                                    Packing
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                                <td style="text-align: center; color: green; font-weight: bold">
+                                    Planning Date
+                                </td>
+                                <td style="text-align: center; color: red; font-weight: bold">
+                                    Actual Date
+                                </td>
+                                <td style="text-align: center; color: black; font-weight: bold">
+                                    Delay Reason
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#myDatepicker3').datepicker({
+            format: "MM, yyyy",
+            startView: "year",
+            minViewMode: "months"
+        });
+        $('.dropForProject').chosen();
+        $('#dropForProject').toggleClass('hide');
+
+
+        $('.DDDCategory1').chosen();
+        $('#DDDCategory').toggleClass('hide');
+
+        $("body:first").addClass("page-sidebar-closed");
+        $("ul.page-sidebar-menu").addClass("page-sidebar-menu-closed");
+
+
+        $('#btnForSearch').on('click', function () {
+            $("#tblForSmt tr.trrCls").empty();
+            $("#tblForHousing tr.trrCls").empty();
+            $("#tblForBattery tr.trrCls").empty();
+            $("#tblForAssembly tr.trrCls").empty();
+
+            var planId = $('option:selected', $('#dropForProject')).val();
+            var category = $('option:selected', $('#DDDCategory')).text();
+            var currMonthYear = $('#myDatepicker3').val();
+
+            if (category == "ALL") {
+                $('#smtDiv').show();
+                //all selected project history
+                $.ajax({
+                    url: '@Url.Action("GetHandsetSmtHistoryData", "Production")',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: { planId: planId, category: category, currentMonthYear: currMonthYear },
+                    success: function (data) {
+                        console.log(data);
+
+
+                        var ll = data.length;
+                        console.log(ll);
+                        var dataList = [];
+
+                        for (var x in data) {
+                            dataList = data[x];
+                        }
+
+                        var l = dataList.length;
+                        if (l == 0) {
+                            $("#tblForSmt tr.trrCls").empty();
+                        }
+
+                        for (var ii = 0; ii < l; ii++) {
+
+                            var smtMaterialPd;
+                            var smtMaterialAd;
+
+                            if (dataList[ii].SoftPlanningDateSmt == null) {
+
+                                smtMaterialPd = "----";
+                            } else {
+
+                                smtMaterialPd = dataList[ii].SoftPlanningDateSmt;
+                            }
+                            if (dataList[ii].SoftActualDateSmt == null) {
+
+                                smtMaterialAd = "----";
+                            } else {
+
+                                smtMaterialAd = dataList[ii].SoftActualDateSmt;
+                            }
+                            //
+                            var smtIqcPd;
+                            var smtIqcAd;
+
+                            if (dataList[ii].IqcPlanningDateSmt == null) {
+
+                                smtIqcPd = "----";
+                            } else {
+
+                                smtIqcPd = dataList[ii].IqcPlanningDateSmt;
+                            }
+                            if (dataList[ii].IqcActualDateSmt == null) {
+
+                                smtIqcAd = "----";
+                            } else {
+
+                                smtIqcAd = dataList[ii].IqcActualDateSmt;
+                            }
+
+                            //
+                            var smtTrailPd;
+                            var smtTrailAd;
+
+                            if (dataList[ii].TrialPlanningDateSmt == null) {
+
+                                smtTrailPd = "----";
+                            } else {
+
+                                smtTrailPd = dataList[ii].TrialPlanningDateSmt;
+                            }
+                            if (dataList[ii].TrialActualDateSmt == null) {
+
+                                smtTrailAd = "----";
+                            } else {
+
+                                smtTrailAd = dataList[ii].TrialActualDateSmt;
+                            }
+                            //
+                            var smtMassPd;
+                            var smtMassAd;
+
+                            if (dataList[ii].MassPlanningDateSmt == null) {
+
+                                smtMassPd = "----";
+                            } else {
+
+                                smtMassPd = dataList[ii].MassPlanningDateSmt;
+                            }
+                            if (dataList[ii].MassActualDateSmt == null) {
+
+                                smtMassAd = "----";
+                            } else {
+
+                                smtMassAd = dataList[ii].MassActualDateSmt;
+                            }
+                            
+                            var HandsetSmtDelayReason;
+                            if (dataList[ii].HandsetSmtDelayReason == null) {
+
+                                HandsetSmtDelayReason = "----";
+                            } else {
+
+                                HandsetSmtDelayReason = dataList[ii].HandsetSmtDelayReason;
+                            }
+                            var HandsetIqcDelayReason;
+                            if (dataList[ii].HandsetIqcDelayReason == null) {
+
+                                HandsetIqcDelayReason = "----";
+                            } else {
+
+                                HandsetIqcDelayReason = dataList[ii].HandsetIqcDelayReason;
+                            }
+                            var HandsetTrialDelayReason;
+                            if (dataList[ii].HandsetTrialDelayReason == null) {
+
+                                HandsetTrialDelayReason = "----";
+                            } else {
+
+                                HandsetTrialDelayReason = dataList[ii].HandsetTrialDelayReason;
+                            }
+                            var HandsetMpDelayReason;
+                            if (dataList[ii].HandsetMpDelayReason == null) {
+
+                                HandsetMpDelayReason = "----";
+                            } else {
+
+                                HandsetMpDelayReason = dataList[ii].HandsetMpDelayReason;
+                            }
+
+                            var body = '<tr class="trrCls">';
+                            body += '<td style="font-weight:bold;text-align: center">' + dataList[ii].ProjectName + '</td>';
+                            body += '<td style="text-align: center">' + smtMaterialPd + '</td>';
+                            body += '<td style="text-align: center">' + smtMaterialAd + '</td>';
+                            body += '<td style="text-align: center">' + HandsetSmtDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + smtIqcPd + '</td>';
+                            body += '<td style="text-align: center">' + smtIqcAd + '</td>';
+                            body += '<td style="text-align: center">' + HandsetIqcDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + smtTrailPd + '</td>';
+                            body += '<td style="text-align: center">' + smtTrailAd + '</td>';
+                            body += '<td style="text-align: center">' + HandsetTrialDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + smtMassPd + '</td>';
+                            body += '<td style="text-align: center">' + smtMassAd + '</td>';
+                            body += '<td style="text-align: center">' + HandsetMpDelayReason + '</td>';
+
+                            body += '</tr>';
+
+                            $("#tblForSmt tbody").append(body);
+
+                        }
+
+                    }
+                });//smt
+                $('#housingDiv').show();
+                //all selected project history
+                $.ajax({
+                    url: '@Url.Action("GetHandsetHousingHistoryData", "Production")',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: { planId: planId, category: category, currentMonthYear: currMonthYear },
+                    success: function (data) {
+                        console.log(data);
+
+
+                        var ll = data.length;
+                        console.log(ll);
+                        var dataList = [];
+
+                        for (var x in data) {
+                            dataList = data[x];
+                        }
+
+                        var l = dataList.length;
+                        if (l == 0) {
+                            $("#tblForHousing tr.trrCls").empty();
+                        }
+
+                        for (var ii = 0; ii < l; ii++) {
+
+                            var housingMaterialPd;
+                            var housingMaterialAd;
+
+                            if (dataList[ii].SoftPlanningDateHousing == null) {
+
+                                housingMaterialPd = "----";
+                            } else {
+
+                                housingMaterialPd = dataList[ii].SoftPlanningDateHousing;
+                            }
+                            if (dataList[ii].SoftActualDateHousing == null) {
+
+                                housingMaterialAd = "----";
+                            } else {
+
+                                housingMaterialAd = dataList[ii].SoftActualDateHousing;
+                            }
+                            //
+                            var housingIqcPd;
+                            var housingIqcAd;
+
+                            if (dataList[ii].IqcPlanningDateHousing == null) {
+
+                                housingIqcPd = "----";
+                            } else {
+
+                                housingIqcPd = dataList[ii].IqcPlanningDateHousing;
+                            }
+                            if (dataList[ii].IqcActualDateHousing == null) {
+
+                                housingIqcAd = "----";
+                            } else {
+
+                                housingIqcAd = dataList[ii].IqcActualDateHousing;
+                            }
+
+                            //
+                            var housingTrailPd;
+                            var housingTrailAd;
+
+                            if (dataList[ii].TrialPlanningDateHousing == null) {
+
+                                housingTrailPd = "----";
+                            } else {
+
+                                housingTrailPd = dataList[ii].TrialPlanningDateHousing;
+                            }
+                            if (dataList[ii].TrialActualDateHousing == null) {
+
+                                housingTrailAd = "----";
+                            } else {
+
+                                housingTrailAd = dataList[ii].TrialActualDateHousing;
+                            }
+                            //
+                            var housingReliabilityPd;
+                            var housingReliabilityAd;
+
+                            if (dataList[ii].ReliabilityPlanningDateHousing == null) {
+
+                                housingReliabilityPd = "----";
+                            } else {
+
+                                housingReliabilityPd = dataList[ii].ReliabilityPlanningDateHousing;
+                            }
+                            if (dataList[ii].ReliabilityActualDateHousing == null) {
+
+                                housingReliabilityAd = "----";
+                            } else {
+
+                                housingReliabilityAd = dataList[ii].ReliabilityActualDateHousing;
+                            }
+                            //
+                            var housingMassPd;
+                            var housingMassAd;
+
+                            if (dataList[ii].MassPlanningDateHousing == null) {
+
+                                housingMassPd = "----";
+                            } else {
+
+                                housingMassPd = dataList[ii].MassPlanningDateHousing;
+                            }
+                            if (dataList[ii].MassActualDateHousing == null) {
+
+                                housingMassAd = "----";
+                            } else {
+
+                                housingMassAd = dataList[ii].MassActualDateHousing;
+                            }
+
+                            //
+                            var HHousingMaterialDelayReason;
+                            if (dataList[ii].HHousingMaterialDelayReason == null) {
+
+                                HHousingMaterialDelayReason = "----";
+                            } else {
+
+                                HHousingMaterialDelayReason = dataList[ii].HHousingMaterialDelayReason;
+                            }
+                            var HHousingIqcDelayReason;
+                            if (dataList[ii].HHousingIqcDelayReason == null) {
+
+                                HHousingIqcDelayReason = "----";
+                            } else {
+
+                                HHousingIqcDelayReason = dataList[ii].HHousingIqcDelayReason;
+                            }
+                            var HHousingTrialDelayReason;
+                            if (dataList[ii].HHousingTrialDelayReason == null) {
+
+                                HHousingTrialDelayReason = "----";
+                            } else {
+
+                                HHousingTrialDelayReason = dataList[ii].HHousingTrialDelayReason;
+                            }
+                            var HHousingReliabilityDelayReason;
+                            if (dataList[ii].HHousingReliabilityDelayReason == null) {
+
+                                HHousingReliabilityDelayReason = "----";
+                            } else {
+
+                                HHousingReliabilityDelayReason = dataList[ii].HHousingReliabilityDelayReason;
+                            }
+                            var HHousingMpDelayReason;
+                            if (dataList[ii].HHousingMpDelayReason == null) {
+
+                                HHousingMpDelayReason = "----";
+                            } else {
+
+                                HHousingMpDelayReason = dataList[ii].HHousingMpDelayReason;
+                            }
+
+                            var body = '<tr class="trrCls">';
+                            body += '<td style="font-weight:bold;text-align: center">' + dataList[ii].ProjectName + '</td>';
+                            body += '<td style="text-align: center">' + housingMaterialPd + '</td>';
+                            body += '<td style="text-align: center">' + housingMaterialAd + '</td>';
+                            body += '<td style="text-align: center">' + HHousingMaterialDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + housingIqcPd + '</td>';
+                            body += '<td style="text-align: center">' + housingIqcAd + '</td>';
+                            body += '<td style="text-align: center">' + HHousingIqcDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + housingTrailPd + '</td>';
+                            body += '<td style="text-align: center">' + housingTrailAd + '</td>';
+                            body += '<td style="text-align: center">' + HHousingTrialDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + housingReliabilityPd + '</td>';
+                            body += '<td style="text-align: center">' + housingReliabilityAd + '</td>';
+                            body += '<td style="text-align: center">' + HHousingReliabilityDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + housingMassPd + '</td>';
+                            body += '<td style="text-align: center">' + housingMassAd + '</td>';
+                            body += '<td style="text-align: center">' + HHousingMpDelayReason + '</td>';
+
+                            body += '</tr>';
+
+                            $("#tblForHousing tbody").append(body);
+
+                        }
+
+                    }
+                });//housing
+                
+                $('#batteryDiv').show();
+                //all selected project history
+                $.ajax({
+                    url: '@Url.Action("GetHandsetBatteryHistoryData", "Production")',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: { planId: planId, category: category, currentMonthYear: currMonthYear },
+                    success: function (data) {
+                        console.log(data);
+
+
+                        var ll = data.length;
+                        console.log(ll);
+                        var dataList = [];
+
+                        for (var x in data) {
+                            dataList = data[x];
+                        }
+
+                        var l = dataList.length;
+                        if (l == 0) {
+                            $("#tblForBattery tr.trrCls").empty();
+                        }
+
+                        for (var ii = 0; ii < l; ii++) {
+
+                            var batteryMaterialPd;
+                            var batteryMaterialAd;
+
+                            if (dataList[ii].SoftPlanningDateBattery == null) {
+
+                                batteryMaterialPd = "----";
+                            } else {
+
+                                batteryMaterialPd = dataList[ii].SoftPlanningDateBattery;
+                            }
+                            if (dataList[ii].SoftActualDateBattery == null) {
+
+                                batteryMaterialAd = "----";
+                            } else {
+
+                                batteryMaterialAd = dataList[ii].SoftActualDateBattery;
+                            }
+                            //
+                            var batteryIqcPd;
+                            var batteryIqcAd;
+
+                            if (dataList[ii].IqcPlanningDateBattery == null) {
+
+                                batteryIqcPd = "----";
+                            } else {
+
+                                batteryIqcPd = dataList[ii].IqcPlanningDateBattery;
+                            }
+                            if (dataList[ii].IqcActualDateBattery == null) {
+
+                                batteryIqcAd = "----";
+                            } else {
+
+                                batteryIqcAd = dataList[ii].IqcActualDateBattery;
+                            }
+
+                            //
+                            var batteryTrailPd;
+                            var batteryTrailAd;
+
+                            if (dataList[ii].TrialPlanningDateBattery == null) {
+
+                                batteryTrailPd = "----";
+                            } else {
+
+                                batteryTrailPd = dataList[ii].TrialPlanningDateBattery;
+                            }
+                            if (dataList[ii].TrialActualDateBattery == null) {
+
+                                batteryTrailAd = "----";
+                            } else {
+
+                                batteryTrailAd = dataList[ii].TrialActualDateBattery;
+                            }
+                            //
+                            var batteryReliabilityPd;
+                            var batteryReliabilityAd;
+
+                            if (dataList[ii].ReliabilityPlanningDateBattery == null) {
+
+                                batteryReliabilityPd = "----";
+                            } else {
+
+                                batteryReliabilityPd = dataList[ii].ReliabilityPlanningDateBattery;
+                            }
+                            if (dataList[ii].ReliabilityActualDateBattery == null) {
+
+                                batteryReliabilityAd = "----";
+                            } else {
+
+                                batteryReliabilityAd = dataList[ii].ReliabilityActualDateBattery;
+                            }
+                            //
+                            var batteryMassPd;
+                            var batteryMassAd;
+
+                            if (dataList[ii].MassPlanningDateBattery == null) {
+
+                                batteryMassPd = "----";
+                            } else {
+
+                                batteryMassPd = dataList[ii].MassPlanningDateBattery;
+                            }
+                            if (dataList[ii].MassActualDateBattery == null) {
+
+                                batteryMassAd = "----";
+                            } else {
+
+                                batteryMassAd = dataList[ii].MassActualDateBattery;
+                            }
+                            //
+                            var batteryAgingPd;
+                            var batteryAgingAd;
+
+                            if (dataList[ii].AgingPlanningDateBattery == null) {
+
+                                batteryAgingPd = "----";
+                            } else {
+
+                                batteryAgingPd = dataList[ii].AgingPlanningDateBattery;
+                            }
+                            if (dataList[ii].AgingActualDateBattery == null) {
+
+                                batteryAgingAd = "----";
+                            } else {
+
+                                batteryAgingAd = dataList[ii].AgingActualDateBattery;
+                            }
+                            //
+                            var HBatteryMaterialDelayReason;
+                            if (dataList[ii].HBatteryMaterialDelayReason == null) {
+
+                                HBatteryMaterialDelayReason = "----";
+                            } else {
+
+                                HBatteryMaterialDelayReason = dataList[ii].HBatteryMaterialDelayReason;
+                            }
+                            var HBatteryIqcDelayReason;
+                            if (dataList[ii].HBatteryIqcDelayReason == null) {
+
+                                HBatteryIqcDelayReason = "----";
+                            } else {
+
+                                HBatteryIqcDelayReason = dataList[ii].HBatteryIqcDelayReason;
+                            }
+                            var HBatteryTrialDelayReason;
+                            if (dataList[ii].HBatteryTrialDelayReason == null) {
+
+                                HBatteryTrialDelayReason = "----";
+                            } else {
+
+                                HBatteryTrialDelayReason = dataList[ii].HBatteryTrialDelayReason;
+                            }
+                            var HBatteryReliabilityDelayReason;
+                            if (dataList[ii].HBatteryReliabilityDelayReason == null) {
+
+                                HBatteryReliabilityDelayReason = "----";
+                            } else {
+
+                                HBatteryReliabilityDelayReason = dataList[ii].HBatteryReliabilityDelayReason;
+                            }
+                            var HBatteryMpDelayReason;
+                            if (dataList[ii].HBatteryMpDelayReason == null) {
+
+                                HBatteryMpDelayReason = "----";
+                            } else {
+
+                                HBatteryMpDelayReason = dataList[ii].HBatteryMpDelayReason;
+                            }
+                            var HBatteryAgingDelayReason;
+                            if (dataList[ii].HBatteryAgingDelayReason == null) {
+
+                                HBatteryAgingDelayReason = "----";
+                            } else {
+
+                                HBatteryAgingDelayReason = dataList[ii].HBatteryAgingDelayReason;
+                            }
+
+
+                            var body = '<tr class="trrCls">';
+                            body += '<td style="font-weight:bold;text-align: center">' + dataList[ii].ProjectName + '</td>';
+                            body += '<td style="text-align: center">' + batteryMaterialPd + '</td>';
+                            body += '<td style="text-align: center">' + batteryMaterialAd + '</td>';
+                            body += '<td style="text-align: center">' + HBatteryMaterialDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + batteryIqcPd + '</td>';
+                            body += '<td style="text-align: center">' + batteryIqcAd + '</td>';
+                            body += '<td style="text-align: center">' + HBatteryIqcDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + batteryTrailPd + '</td>';
+                            body += '<td style="text-align: center">' + batteryTrailAd + '</td>';
+                            body += '<td style="text-align: center">' + HBatteryTrialDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + batteryReliabilityPd + '</td>';
+                            body += '<td style="text-align: center">' + batteryReliabilityAd + '</td>';
+                            body += '<td style="text-align: center">' + HBatteryReliabilityDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + batteryMassPd + '</td>';
+                            body += '<td style="text-align: center">' + batteryMassAd + '</td>';
+                            body += '<td style="text-align: center">' + HBatteryMpDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + batteryAgingPd + '</td>';
+                            body += '<td style="text-align: center">' + batteryAgingAd + '</td>';
+                            body += '<td style="text-align: center">' + HBatteryAgingDelayReason + '</td>';
+                            body += '</tr>';
+
+                            $("#tblForBattery tbody").append(body);
+
+                        }
+
+                    }
+                });//Battery
+                
+
+                $('#assemblyDiv').show();
+                //all selected project history
+                $.ajax({
+                    url: '@Url.Action("GetHandsetAssemblyHistoryData", "Production")',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: { planId: planId, category: category, currentMonthYear: currMonthYear },
+                    success: function (data) {
+                        console.log(data);
+
+                        var ll = data.length;
+                        console.log(ll);
+                        var dataList = [];
+
+                        for (var x in data) {
+                            dataList = data[x];
+                        }
+
+                        var l = dataList.length;
+                        if (l == 0) {
+                            $("#tblForAssembly tr.trrCls").empty();
+                        }
+
+                        for (var ii = 0; ii < l; ii++) {
+
+                            var assemblyMaterialPd;
+                            var assemblyMaterialAd;
+
+                            if (dataList[ii].SoftPlanningDateAssembly == null) {
+
+                                assemblyMaterialPd = "----";
+                            } else {
+
+                                assemblyMaterialPd = dataList[ii].SoftPlanningDateAssembly;
+                            }
+                            if (dataList[ii].SoftActualDateAssembly == null) {
+
+                                assemblyMaterialAd = "----";
+                            } else {
+
+                                assemblyMaterialAd = dataList[ii].SoftActualDateAssembly;
+                            }
+                            //
+                            var assemblyIqcPd;
+                            var assemblyIqcAd;
+
+                            if (dataList[ii].IqcPlanningDateAssembly == null) {
+
+                                assemblyIqcPd = "----";
+                            } else {
+
+                                assemblyIqcPd = dataList[ii].IqcPlanningDateAssembly;
+                            }
+                            if (dataList[ii].IqcActualDateAssembly == null) {
+
+                                assemblyIqcAd = "----";
+                            } else {
+
+                                assemblyIqcAd = dataList[ii].IqcActualDateAssembly;
+                            }
+
+                            //
+                            var assemblyTrailPd;
+                            var assemblyTrailAd;
+
+                            if (dataList[ii].TrialPlanningDateAssembly == null) {
+
+                                assemblyTrailPd = "----";
+                            } else {
+
+                                assemblyTrailPd = dataList[ii].TrialPlanningDateAssembly;
+                            }
+                            if (dataList[ii].TrialActualDateAssembly == null) {
+
+                                assemblyTrailAd = "----";
+                            } else {
+
+                                assemblyTrailAd = dataList[ii].TrialActualDateAssembly;
+                            }
+                            //
+                            var assemblySoftwarePd;
+                            var assemblySoftwareAd;
+
+                            if (dataList[ii].SoftwarePlanningDateAssembly == null) {
+
+                                assemblySoftwarePd = "----";
+                            } else {
+
+                                assemblySoftwarePd = dataList[ii].SoftwarePlanningDateAssembly;
+                            }
+                            if (dataList[ii].SoftwareActualDateAssembly == null) {
+
+                                assemblySoftwareAd = "----";
+                            } else {
+
+                                assemblySoftwareAd = dataList[ii].SoftwareActualDateAssembly;
+                            }
+                            //
+                            var assemblyRndPd;
+                            var assemblyRndAd;
+
+                            if (dataList[ii].RndPlanningDateAssembly == null) {
+
+                                assemblyRndPd = "----";
+                            } else {
+
+                                assemblyRndPd = dataList[ii].RndPlanningDateAssembly;
+                            }
+                            if (dataList[ii].RndActualDateAssembly == null) {
+
+                                assemblyRndAd = "----";
+                            } else {
+
+                                assemblyRndAd = dataList[ii].RndActualDateAssembly;
+                            }
+                            //
+                            var assemblyMassPd;
+                            var assemblyMassAd;
+
+                            if (dataList[ii].MassPlanningDateAssembly == null) {
+
+                                assemblyMassPd = "----";
+                            } else {
+
+                                assemblyMassPd = dataList[ii].MassPlanningDateAssembly;
+                            }
+                            if (dataList[ii].MassActualDateAssembly == null) {
+
+                                assemblyMassAd = "----";
+                            } else {
+
+                                assemblyMassAd = dataList[ii].MassActualDateAssembly;
+                            }
+                            //
+                            var packingPd;
+                            var packingAd;
+
+                            if (dataList[ii].PackingPlanningDateAssembly == null) {
+
+                                packingPd = "----";
+                            } else {
+
+                                packingPd = dataList[ii].PackingPlanningDateAssembly;
+                            }
+                            if (dataList[ii].PackingActualDateAssembly == null) {
+
+                                packingAd = "----";
+                            } else {
+
+                                packingAd = dataList[ii].PackingActualDateAssembly;
+                            }
+                            //
+                            var HAssemblyMaterialDelayReason;
+                            if (dataList[ii].HAssemblyMaterialDelayReason == null) {
+                                HAssemblyMaterialDelayReason = "----";
+                            } else {
+                                HAssemblyMaterialDelayReason = dataList[ii].HAssemblyMaterialDelayReason;
+                            }
+                            var HAssemblyIqcDelayReason;
+                            if (dataList[ii].HAssemblyIqcDelayReason == null) {
+                                HAssemblyIqcDelayReason = "----";
+                            } else {
+                                HAssemblyIqcDelayReason = dataList[ii].HAssemblyIqcDelayReason;
+                            }
+                            var HAssemblyTrialDelayReason;
+                            if (dataList[ii].HAssemblyTrialDelayReason == null) {
+                                HAssemblyTrialDelayReason = "----";
+                            } else {
+                                HAssemblyTrialDelayReason = dataList[ii].HAssemblyTrialDelayReason;
+                            }
+                            var HAssemblySoftComDelayReason;
+                            if (dataList[ii].HAssemblySoftComDelayReason == null) {
+                                HAssemblySoftComDelayReason = "----";
+                            } else {
+                                HAssemblySoftComDelayReason = dataList[ii].HAssemblySoftComDelayReason;
+                            }
+                            var HAssemblyRndDelayReason;
+                            if (dataList[ii].HAssemblyRndDelayReason == null) {
+                                HAssemblyRndDelayReason = "----";
+                            } else {
+                                HAssemblyRndDelayReason = dataList[ii].HAssemblyRndDelayReason;
+                            }
+                            var HAssemblyDelayReason;
+                            if (dataList[ii].HAssemblyDelayReason == null) {
+                                HAssemblyDelayReason = "----";
+                            } else {
+                                HAssemblyDelayReason = dataList[ii].HAssemblyDelayReason;
+                            }
+                            var HAssemblyPackingDelayReason;
+                            if (dataList[ii].HAssemblyPackingDelayReason == null) {
+                                HAssemblyPackingDelayReason = "----";
+                            } else {
+                                HAssemblyPackingDelayReason = dataList[ii].HAssemblyPackingDelayReason;
+                            }
+
+                            var body = '<tr class="trrCls">';
+                            body += '<td style="font-weight:bold;text-align: center">' + dataList[ii].ProjectName + '</td>';
+                            body += '<td style="text-align: center">' + assemblyMaterialPd + '</td>';
+                            body += '<td style="text-align: center">' + assemblyMaterialAd + '</td>';
+                            body += '<td style="text-align: center">' + HAssemblyMaterialDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + assemblyIqcPd + '</td>';
+                            body += '<td style="text-align: center">' + assemblyIqcAd + '</td>';
+                            body += '<td style="text-align: center">' + HAssemblyIqcDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + assemblyTrailPd + '</td>';
+                            body += '<td style="text-align: center">' + assemblyTrailAd + '</td>';
+                            body += '<td style="text-align: center">' + HAssemblyTrialDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + assemblySoftwarePd + '</td>';
+                            body += '<td style="text-align: center">' + assemblySoftwareAd + '</td>';
+                            body += '<td style="text-align: center">' + HAssemblySoftComDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + assemblyRndPd + '</td>';
+                            body += '<td style="text-align: center">' + assemblyRndAd + '</td>';
+                            body += '<td style="text-align: center">' + HAssemblyRndDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + assemblyMassPd + '</td>';
+                            body += '<td style="text-align: center">' + assemblyMassAd + '</td>';
+                            body += '<td style="text-align: center">' + HAssemblyDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + packingPd + '</td>';
+                            body += '<td style="text-align: center">' + packingAd + '</td>';
+                            body += '<td style="text-align: center">' + HAssemblyPackingDelayReason + '</td>';
+                            body += '</tr>';
+
+                            $("#tblForAssembly tbody").append(body);
+                        }
+                    }
+                });//Assembly
+            }
+
+            if (category == "SMT") {
+
+                $('#smtDiv').show();
+                //all selected project history
+                $.ajax({
+                    url: '@Url.Action("GetHandsetSmtHistoryData", "Production")',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: { planId: planId, category: category, currentMonthYear: currMonthYear },
+                    success: function (data) {
+                        console.log(data);
+
+
+                        var ll = data.length;
+                        console.log(ll);
+                        var dataList = [];
+
+                        for (var x in data) {
+                            dataList = data[x];
+                        }
+
+                        var l = dataList.length;
+                        if (l == 0) {
+                            $("#tblForSmt tr.trrCls").empty();
+                        }
+
+                        for (var ii = 0; ii < l; ii++) {
+
+                            var smtMaterialPd;
+                            var smtMaterialAd;
+
+                            if (dataList[ii].SoftPlanningDateSmt == null) {
+
+                                smtMaterialPd = "----";
+                            } else {
+
+                                smtMaterialPd = dataList[ii].SoftPlanningDateSmt;
+                            }
+                            if (dataList[ii].SoftActualDateSmt == null) {
+
+                                smtMaterialAd = "----";
+                            } else {
+
+                                smtMaterialAd = dataList[ii].SoftActualDateSmt;
+                            }
+                            //
+                            var smtIqcPd;
+                            var smtIqcAd;
+
+                            if (dataList[ii].IqcPlanningDateSmt == null) {
+
+                                smtIqcPd = "----";
+                            } else {
+
+                                smtIqcPd = dataList[ii].IqcPlanningDateSmt;
+                            }
+                            if (dataList[ii].IqcActualDateSmt == null) {
+
+                                smtIqcAd = "----";
+                            } else {
+
+                                smtIqcAd = dataList[ii].IqcActualDateSmt;
+                            }
+
+                            //
+                            var smtTrailPd;
+                            var smtTrailAd;
+
+                            if (dataList[ii].TrialPlanningDateSmt == null) {
+
+                                smtTrailPd = "----";
+                            } else {
+
+                                smtTrailPd = dataList[ii].TrialPlanningDateSmt;
+                            }
+                            if (dataList[ii].TrialActualDateSmt == null) {
+
+                                smtTrailAd = "----";
+                            } else {
+
+                                smtTrailAd = dataList[ii].TrialActualDateSmt;
+                            }
+                            //
+                            var smtMassPd;
+                            var smtMassAd;
+
+                            if (dataList[ii].MassPlanningDateSmt == null) {
+
+                                smtMassPd = "----";
+                            } else {
+
+                                smtMassPd = dataList[ii].MassPlanningDateSmt;
+                            }
+                            if (dataList[ii].MassActualDateSmt == null) {
+
+                                smtMassAd = "----";
+                            } else {
+
+                                smtMassAd = dataList[ii].MassActualDateSmt;
+                            }
+
+                            var HandsetSmtDelayReason;
+                            if (dataList[ii].HandsetSmtDelayReason == null) {
+
+                                HandsetSmtDelayReason = "----";
+                            }
+                            else {
+                                
+                                HandsetSmtDelayReason = dataList[ii].HandsetSmtDelayReason;
+                            }
+                            var HandsetIqcDelayReason;
+                            if (dataList[ii].HandsetIqcDelayReason == null) {
+
+                                HandsetIqcDelayReason = "----";
+                            }
+                            else {
+
+                                HandsetIqcDelayReason = dataList[ii].HandsetIqcDelayReason;
+                            }
+                            var HandsetTrialDelayReason;
+                            if (dataList[ii].HandsetTrialDelayReason == null) {
+
+                                HandsetTrialDelayReason = "----";
+                            }
+                            else {
+
+                                HandsetTrialDelayReason = dataList[ii].HandsetTrialDelayReason;
+                            }
+                            var HandsetMpDelayReason;
+                            if (dataList[ii].HandsetMpDelayReason == null) {
+
+                                HandsetMpDelayReason = "----";
+                            }
+                            else {
+
+                                HandsetMpDelayReason = dataList[ii].HandsetMpDelayReason;
+                            }
+                            var body = '<tr class="trrCls">';
+                            body += '<td style="font-weight:bold;text-align: center">' + dataList[ii].ProjectName + '</td>';
+                            body += '<td style="text-align: center">' + smtMaterialPd + '</td>';
+                            body += '<td style="text-align: center">' + smtMaterialAd + '</td>';
+                            body += '<td style="text-align: center">' + HandsetSmtDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + smtIqcPd + '</td>';
+                            body += '<td style="text-align: center">' + smtIqcAd + '</td>';
+                            body += '<td style="text-align: center">' + HandsetIqcDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + smtTrailPd + '</td>';
+                            body += '<td style="text-align: center">' + smtTrailAd + '</td>';
+                            body += '<td style="text-align: center">' + HandsetTrialDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + smtMassPd + '</td>';
+                            body += '<td style="text-align: center">' + smtMassAd + '</td>';
+                            body += '<td style="text-align: center">' + HandsetMpDelayReason + '</td>';
+
+                            body += '</tr>';
+
+                            $("#tblForSmt tbody").append(body);
+
+                        }
+
+                    }
+                });
+                //all selected project history
+            } else if (category == "ALL") {
+
+                $('#smtDiv').show();
+            }
+            else {
+                $('#smtDiv').hide();
+            }
+
+            //Housing
+            if (category == "HOUSING") {
+
+                $('#housingDiv').show();
+                //all selected project history
+                $.ajax({
+                    url: '@Url.Action("GetHandsetHousingHistoryData", "Production")',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: { planId: planId, category: category, currentMonthYear: currMonthYear },
+                    success: function (data) {
+                        console.log(data);
+
+
+                        var ll = data.length;
+                        console.log(ll);
+                        var dataList = [];
+
+                        for (var x in data) {
+                            dataList = data[x];
+                        }
+
+                        var l = dataList.length;
+                        if (l == 0) {
+                            $("#tblForHousing tr.trrCls").empty();
+                        }
+
+                        for (var ii = 0; ii < l; ii++) {
+
+                            var housingMaterialPd;
+                            var housingMaterialAd;
+
+                            if (dataList[ii].SoftPlanningDateHousing == null) {
+
+                                housingMaterialPd = "----";
+                            } else {
+
+                                housingMaterialPd = dataList[ii].SoftPlanningDateHousing;
+                            }
+                            if (dataList[ii].SoftActualDateHousing == null) {
+
+                                housingMaterialAd = "----";
+                            } else {
+
+                                housingMaterialAd = dataList[ii].SoftActualDateHousing;
+                            }
+                            //
+                            var housingIqcPd;
+                            var housingIqcAd;
+
+                            if (dataList[ii].IqcPlanningDateHousing == null) {
+
+                                housingIqcPd = "----";
+                            } else {
+
+                                housingIqcPd = dataList[ii].IqcPlanningDateHousing;
+                            }
+                            if (dataList[ii].IqcActualDateHousing == null) {
+
+                                housingIqcAd = "----";
+                            } else {
+
+                                housingIqcAd = dataList[ii].IqcActualDateHousing;
+                            }
+
+                            //
+                            var housingTrailPd;
+                            var housingTrailAd;
+
+                            if (dataList[ii].TrialPlanningDateHousing == null) {
+
+                                housingTrailPd = "----";
+                            } else {
+
+                                housingTrailPd = dataList[ii].TrialPlanningDateHousing;
+                            }
+                            if (dataList[ii].TrialActualDateHousing == null) {
+
+                                housingTrailAd = "----";
+                            } else {
+
+                                housingTrailAd = dataList[ii].TrialActualDateHousing;
+                            }
+                            //
+                            var housingReliabilityPd;
+                            var housingReliabilityAd;
+
+                            if (dataList[ii].ReliabilityPlanningDateHousing == null) {
+
+                                housingReliabilityPd = "----";
+                            } else {
+
+                                housingReliabilityPd = dataList[ii].ReliabilityPlanningDateHousing;
+                            }
+                            if (dataList[ii].ReliabilityActualDateHousing == null) {
+
+                                housingReliabilityAd = "----";
+                            } else {
+
+                                housingReliabilityAd = dataList[ii].ReliabilityActualDateHousing;
+                            }
+                            //
+                            var housingMassPd;
+                            var housingMassAd;
+
+                            if (dataList[ii].MassPlanningDateHousing == null) {
+
+                                housingMassPd = "----";
+                            } else {
+
+                                housingMassPd = dataList[ii].MassPlanningDateHousing;
+                            }
+                            if (dataList[ii].MassActualDateHousing == null) {
+
+                                housingMassAd = "----";
+                            } else {
+
+                                housingMassAd = dataList[ii].MassActualDateHousing;
+                            }
+                            //
+                            var HHousingMaterialDelayReason;
+                            if (dataList[ii].HHousingMaterialDelayReason == null) {
+
+                                HHousingMaterialDelayReason = "----";
+                            } else {
+
+                                HHousingMaterialDelayReason = dataList[ii].HHousingMaterialDelayReason;
+                            }
+                            var HHousingIqcDelayReason;
+                            if (dataList[ii].HHousingIqcDelayReason == null) {
+
+                                HHousingIqcDelayReason = "----";
+                            } else {
+
+                                HHousingIqcDelayReason = dataList[ii].HHousingIqcDelayReason;
+                            }
+                            var HHousingTrialDelayReason;
+                            if (dataList[ii].HHousingTrialDelayReason == null) {
+
+                                HHousingTrialDelayReason = "----";
+                            } else {
+
+                                HHousingTrialDelayReason = dataList[ii].HHousingTrialDelayReason;
+                            }
+                            var HHousingReliabilityDelayReason;
+                            if (dataList[ii].HHousingReliabilityDelayReason == null) {
+
+                                HHousingReliabilityDelayReason = "----";
+                            } else {
+
+                                HHousingReliabilityDelayReason = dataList[ii].HHousingReliabilityDelayReason;
+                            }
+                            var HHousingMpDelayReason;
+                            if (dataList[ii].HHousingMpDelayReason == null) {
+
+                                HHousingMpDelayReason = "----";
+                            } else {
+
+                                HHousingMpDelayReason = dataList[ii].HHousingMpDelayReason;
+                            }
+
+                            var body = '<tr class="trrCls">';
+                            body += '<td style="font-weight:bold;text-align: center">' + dataList[ii].ProjectName + '</td>';
+                            body += '<td style="text-align: center">' + housingMaterialPd + '</td>';
+                            body += '<td style="text-align: center">' + housingMaterialAd + '</td>';
+                            body += '<td style="text-align: center">' + HHousingMaterialDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + housingIqcPd + '</td>';
+                            body += '<td style="text-align: center">' + housingIqcAd + '</td>';
+                            body += '<td style="text-align: center">' + HHousingIqcDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + housingTrailPd + '</td>';
+                            body += '<td style="text-align: center">' + housingTrailAd + '</td>';
+                            body += '<td style="text-align: center">' + HHousingTrialDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + housingReliabilityPd + '</td>';
+                            body += '<td style="text-align: center">' + housingReliabilityAd + '</td>';
+                            body += '<td style="text-align: center">' + HHousingReliabilityDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + housingMassPd + '</td>';
+                            body += '<td style="text-align: center">' + housingMassAd + '</td>';
+                            body += '<td style="text-align: center">' + HHousingMpDelayReason + '</td>';
+
+                            body += '</tr>';
+
+                            $("#tblForHousing tbody").append(body);
+
+                        }
+
+                    }
+                });
+                //all selected project history
+            } else if (category == "ALL") {
+
+                $('#housingDiv').show();
+            } else {
+                $('#housingDiv').hide();
+            }
+
+            //Battery
+            if (category == "BATTERY") {
+                $('#batteryDiv').show();
+                //all selected project history
+                $.ajax({
+                    url: '@Url.Action("GetHandsetBatteryHistoryData", "Production")',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: { planId: planId, category: category, currentMonthYear: currMonthYear },
+                    success: function (data) {
+                        console.log(data);
+
+
+                        var ll = data.length;
+                        console.log(ll);
+                        var dataList = [];
+
+                        for (var x in data) {
+                            dataList = data[x];
+                        }
+
+                        var l = dataList.length;
+                        if (l == 0) {
+                            $("#tblForBattery tr.trrCls").empty();
+                        }
+
+                        for (var ii = 0; ii < l; ii++) {
+
+                            var batteryMaterialPd;
+                            var batteryMaterialAd;
+
+                            if (dataList[ii].SoftPlanningDateBattery == null) {
+
+                                batteryMaterialPd = "----";
+                            } else {
+
+                                batteryMaterialPd = dataList[ii].SoftPlanningDateBattery;
+                            }
+                            if (dataList[ii].SoftActualDateBattery == null) {
+
+                                batteryMaterialAd = "----";
+                            } else {
+
+                                batteryMaterialAd = dataList[ii].SoftActualDateBattery;
+                            }
+                            //
+                            var batteryIqcPd;
+                            var batteryIqcAd;
+
+                            if (dataList[ii].IqcPlanningDateBattery == null) {
+
+                                batteryIqcPd = "----";
+                            } else {
+
+                                batteryIqcPd = dataList[ii].IqcPlanningDateBattery;
+                            }
+                            if (dataList[ii].IqcActualDateBattery == null) {
+
+                                batteryIqcAd = "----";
+                            } else {
+
+                                batteryIqcAd = dataList[ii].IqcActualDateBattery;
+                            }
+
+                            //
+                            var batteryTrailPd;
+                            var batteryTrailAd;
+
+                            if (dataList[ii].TrialPlanningDateBattery == null) {
+
+                                batteryTrailPd = "----";
+                            } else {
+
+                                batteryTrailPd = dataList[ii].TrialPlanningDateBattery;
+                            }
+                            if (dataList[ii].TrialActualDateBattery == null) {
+
+                                batteryTrailAd = "----";
+                            } else {
+
+                                batteryTrailAd = dataList[ii].TrialActualDateBattery;
+                            }
+                            //
+                            var batteryReliabilityPd;
+                            var batteryReliabilityAd;
+
+                            if (dataList[ii].ReliabilityPlanningDateBattery == null) {
+
+                                batteryReliabilityPd = "----";
+                            } else {
+
+                                batteryReliabilityPd = dataList[ii].ReliabilityPlanningDateBattery;
+                            }
+                            if (dataList[ii].ReliabilityActualDateBattery == null) {
+
+                                batteryReliabilityAd = "----";
+                            } else {
+
+                                batteryReliabilityAd = dataList[ii].ReliabilityActualDateBattery;
+                            }
+                            //
+                            var batteryMassPd;
+                            var batteryMassAd;
+
+                            if (dataList[ii].MassPlanningDateBattery == null) {
+
+                                batteryMassPd = "----";
+                            } else {
+
+                                batteryMassPd = dataList[ii].MassPlanningDateBattery;
+                            }
+                            if (dataList[ii].MassActualDateBattery == null) {
+
+                                batteryMassAd = "----";
+                            } else {
+
+                                batteryMassAd = dataList[ii].MassActualDateBattery;
+                            }
+                            //
+                            var batteryAgingPd;
+                            var batteryAgingAd;
+
+                            if (dataList[ii].AgingPlanningDateBattery == null) {
+
+                                batteryAgingPd = "----";
+                            } else {
+
+                                batteryAgingPd = dataList[ii].AgingPlanningDateBattery;
+                            }
+                            if (dataList[ii].AgingActualDateBattery == null) {
+
+                                batteryAgingAd = "----";
+                            } else {
+
+                                batteryAgingAd = dataList[ii].AgingActualDateBattery;
+                            }
+                            //
+                            var HBatteryMaterialDelayReason;
+                            if (dataList[ii].HBatteryMaterialDelayReason == null) {
+
+                                HBatteryMaterialDelayReason = "----";
+                            } else {
+
+                                HBatteryMaterialDelayReason = dataList[ii].HBatteryMaterialDelayReason;
+                            }
+                            var HBatteryIqcDelayReason;
+                            if (dataList[ii].HBatteryIqcDelayReason == null) {
+
+                                HBatteryIqcDelayReason = "----";
+                            } else {
+
+                                HBatteryIqcDelayReason = dataList[ii].HBatteryIqcDelayReason;
+                            }
+                            var HBatteryTrialDelayReason;
+                            if (dataList[ii].HBatteryTrialDelayReason == null) {
+
+                                HBatteryTrialDelayReason = "----";
+                            } else {
+
+                                HBatteryTrialDelayReason = dataList[ii].HBatteryTrialDelayReason;
+                            }
+                            var HBatteryReliabilityDelayReason;
+                            if (dataList[ii].HBatteryReliabilityDelayReason == null) {
+
+                                HBatteryReliabilityDelayReason = "----";
+                            } else {
+
+                                HBatteryReliabilityDelayReason = dataList[ii].HBatteryReliabilityDelayReason;
+                            }
+                            var HBatteryMpDelayReason;
+                            if (dataList[ii].HBatteryMpDelayReason == null) {
+
+                                HBatteryMpDelayReason = "----";
+                            } else {
+
+                                HBatteryMpDelayReason = dataList[ii].HBatteryMpDelayReason;
+                            }
+                            var HBatteryAgingDelayReason;
+                            if (dataList[ii].HBatteryAgingDelayReason == null) {
+
+                                HBatteryAgingDelayReason = "----";
+                            } else {
+
+                                HBatteryAgingDelayReason = dataList[ii].HBatteryAgingDelayReason;
+                            }
+
+                            var body = '<tr class="trrCls">';
+                            body += '<td style="font-weight:bold;text-align: center">' + dataList[ii].ProjectName + '</td>';
+                            body += '<td style="text-align: center">' + batteryMaterialPd + '</td>';
+                            body += '<td style="text-align: center">' + batteryMaterialAd + '</td>';
+                            body += '<td style="text-align: center">' + HBatteryMaterialDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + batteryIqcPd + '</td>';
+                            body += '<td style="text-align: center">' + batteryIqcAd + '</td>';
+                            body += '<td style="text-align: center">' + HBatteryIqcDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + batteryTrailPd + '</td>';
+                            body += '<td style="text-align: center">' + batteryTrailAd + '</td>';
+                            body += '<td style="text-align: center">' + HBatteryTrialDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + batteryReliabilityPd + '</td>';
+                            body += '<td style="text-align: center">' + batteryReliabilityAd + '</td>';
+                            body += '<td style="text-align: center">' + HBatteryReliabilityDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + batteryMassPd + '</td>';
+                            body += '<td style="text-align: center">' + batteryMassAd + '</td>';
+                            body += '<td style="text-align: center">' + HBatteryMpDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + batteryAgingPd + '</td>';
+                            body += '<td style="text-align: center">' + batteryAgingAd + '</td>';
+                            body += '<td style="text-align: center">' + HBatteryAgingDelayReason + '</td>';
+                            body += '</tr>';
+
+                            $("#tblForBattery tbody").append(body);
+
+                        }
+
+                    }
+                });
+                //all selected project history
+            } else if (category == "ALL") {
+
+                $('#batteryDiv').show();
+            } else {
+                $('#batteryDiv').hide();
+            }
+            //Assembly
+            if (category == "ASSEMBLY") {
+                $('#assemblyDiv').show();
+                //all selected project history
+                $.ajax({
+                    url: '@Url.Action("GetHandsetAssemblyHistoryData", "Production")',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: { planId: planId, category: category, currentMonthYear: currMonthYear },
+                    success: function (data) {
+                        console.log(data);
+
+                        var ll = data.length;
+                        console.log(ll);
+                        var dataList = [];
+
+                        for (var x in data) {
+                            dataList = data[x];
+                        }
+
+                        var l = dataList.length;
+                        if (l == 0) {
+                            $("#tblForAssembly tr.trrCls").empty();
+                        }
+
+                        for (var ii = 0; ii < l; ii++) {
+
+                            var assemblyMaterialPd;
+                            var assemblyMaterialAd;
+
+                            if (dataList[ii].SoftPlanningDateAssembly == null) {
+
+                                assemblyMaterialPd = "----";
+                            } else {
+
+                                assemblyMaterialPd = dataList[ii].SoftPlanningDateAssembly;
+                            }
+                            if (dataList[ii].SoftActualDateAssembly == null) {
+
+                                assemblyMaterialAd = "----";
+                            } else {
+
+                                assemblyMaterialAd = dataList[ii].SoftActualDateAssembly;
+                            }
+                            //
+                            var assemblyIqcPd;
+                            var assemblyIqcAd;
+
+                            if (dataList[ii].IqcPlanningDateAssembly == null) {
+
+                                assemblyIqcPd = "----";
+                            } else {
+
+                                assemblyIqcPd = dataList[ii].IqcPlanningDateAssembly;
+                            }
+                            if (dataList[ii].IqcActualDateAssembly == null) {
+
+                                assemblyIqcAd = "----";
+                            } else {
+
+                                assemblyIqcAd = dataList[ii].IqcActualDateAssembly;
+                            }
+
+                            //
+                            var assemblyTrailPd;
+                            var assemblyTrailAd;
+
+                            if (dataList[ii].TrialPlanningDateAssembly == null) {
+
+                                assemblyTrailPd = "----";
+                            } else {
+
+                                assemblyTrailPd = dataList[ii].TrialPlanningDateAssembly;
+                            }
+                            if (dataList[ii].TrialActualDateAssembly == null) {
+
+                                assemblyTrailAd = "----";
+                            } else {
+
+                                assemblyTrailAd = dataList[ii].TrialActualDateAssembly;
+                            }
+                            //
+                            var assemblySoftwarePd;
+                            var assemblySoftwareAd;
+
+                            if (dataList[ii].SoftwarePlanningDateAssembly == null) {
+
+                                assemblySoftwarePd = "----";
+                            } else {
+
+                                assemblySoftwarePd = dataList[ii].SoftwarePlanningDateAssembly;
+                            }
+                            if (dataList[ii].SoftwareActualDateAssembly == null) {
+
+                                assemblySoftwareAd = "----";
+                            } else {
+
+                                assemblySoftwareAd = dataList[ii].SoftwareActualDateAssembly;
+                            }
+                            //
+                            var assemblyRndPd;
+                            var assemblyRndAd;
+
+                            if (dataList[ii].RndPlanningDateAssembly == null) {
+
+                                assemblyRndPd = "----";
+                            } else {
+
+                                assemblyRndPd = dataList[ii].RndPlanningDateAssembly;
+                            }
+                            if (dataList[ii].RndActualDateAssembly == null) {
+
+                                assemblyRndAd = "----";
+                            } else {
+
+                                assemblyRndAd = dataList[ii].RndActualDateAssembly;
+                            }
+                            //
+                            var assemblyMassPd;
+                            var assemblyMassAd;
+
+                            if (dataList[ii].MassPlanningDateAssembly == null) {
+
+                                assemblyMassPd = "----";
+                            } else {
+
+                                assemblyMassPd = dataList[ii].MassPlanningDateAssembly;
+                            }
+                            if (dataList[ii].MassActualDateAssembly == null) {
+
+                                assemblyMassAd = "----";
+                            } else {
+
+                                assemblyMassAd = dataList[ii].MassActualDateAssembly;
+                            }
+                            //
+                            var packingPd;
+                            var packingAd;
+
+                            if (dataList[ii].PackingPlanningDateAssembly == null) {
+
+                                packingPd = "----";
+                            } else {
+
+                                packingPd = dataList[ii].PackingPlanningDateAssembly;
+                            }
+                            if (dataList[ii].PackingActualDateAssembly == null) {
+
+                                packingAd = "----";
+                            } else {
+
+                                packingAd = dataList[ii].PackingActualDateAssembly;
+                            }
+                            //
+                            var HAssemblyMaterialDelayReason;
+                            if (dataList[ii].HAssemblyMaterialDelayReason == null) {
+                                HAssemblyMaterialDelayReason = "----";
+                            } else {
+                                HAssemblyMaterialDelayReason = dataList[ii].HAssemblyMaterialDelayReason;
+                            }
+                            var HAssemblyIqcDelayReason;
+                            if (dataList[ii].HAssemblyIqcDelayReason == null) {
+                                HAssemblyIqcDelayReason = "----";
+                            } else {
+                                HAssemblyIqcDelayReason = dataList[ii].HAssemblyIqcDelayReason;
+                            }
+                            var HAssemblyTrialDelayReason;
+                            if (dataList[ii].HAssemblyTrialDelayReason == null) {
+                                HAssemblyTrialDelayReason = "----";
+                            } else {
+                                HAssemblyTrialDelayReason = dataList[ii].HAssemblyTrialDelayReason;
+                            }
+                            var HAssemblySoftComDelayReason;
+                            if (dataList[ii].HAssemblySoftComDelayReason == null) {
+                                HAssemblySoftComDelayReason = "----";
+                            } else {
+                                HAssemblySoftComDelayReason = dataList[ii].HAssemblySoftComDelayReason;
+                            }
+                            var HAssemblyRndDelayReason;
+                            if (dataList[ii].HAssemblyRndDelayReason == null) {
+                                HAssemblyRndDelayReason = "----";
+                            } else {
+                                HAssemblyRndDelayReason = dataList[ii].HAssemblyRndDelayReason;
+                            }
+                            var HAssemblyDelayReason;
+                            if (dataList[ii].HAssemblyDelayReason == null) {
+                                HAssemblyDelayReason = "----";
+                            } else {
+                                HAssemblyDelayReason = dataList[ii].HAssemblyDelayReason;
+                            }
+                            var HAssemblyPackingDelayReason;
+                            if (dataList[ii].HAssemblyPackingDelayReason == null) {
+                                HAssemblyPackingDelayReason = "----";
+                            } else {
+                                HAssemblyPackingDelayReason = dataList[ii].HAssemblyPackingDelayReason;
+                            }
+
+                            var body = '<tr class="trrCls">';
+                            body += '<td style="font-weight:bold;text-align: center">' + dataList[ii].ProjectName + '</td>';
+                            body += '<td style="text-align: center">' + assemblyMaterialPd + '</td>';
+                            body += '<td style="text-align: center">' + assemblyMaterialAd + '</td>';
+                            body += '<td style="text-align: center">' + HAssemblyMaterialDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + assemblyIqcPd + '</td>';
+                            body += '<td style="text-align: center">' + assemblyIqcAd + '</td>';
+                            body += '<td style="text-align: center">' + HAssemblyIqcDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + assemblyTrailPd + '</td>';
+                            body += '<td style="text-align: center">' + assemblyTrailAd + '</td>';
+                            body += '<td style="text-align: center">' + HAssemblyTrialDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + assemblySoftwarePd + '</td>';
+                            body += '<td style="text-align: center">' + assemblySoftwareAd + '</td>';
+                            body += '<td style="text-align: center">' + HAssemblySoftComDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + assemblyRndPd + '</td>';
+                            body += '<td style="text-align: center">' + assemblyRndAd + '</td>';
+                            body += '<td style="text-align: center">' + HAssemblyRndDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + assemblyMassPd + '</td>';
+                            body += '<td style="text-align: center">' + assemblyMassAd + '</td>';
+                            body += '<td style="text-align: center">' + HAssemblyDelayReason + '</td>';
+                            body += '<td style="text-align: center">' + packingPd + '</td>';
+                            body += '<td style="text-align: center">' + packingAd + '</td>';
+                            body += '<td style="text-align: center">' + HAssemblyPackingDelayReason + '</td>';
+                            body += '</tr>';
+
+                            $("#tblForAssembly tbody").append(body);
+                        }
+                    }
+                });
+                //all selected project history
+            } else if (category == "ALL") {
+
+                $('#assemblyDiv').show();
+            } else {
+                $('#assemblyDiv').hide();
+            }
+
+        });
+    });
+
+
+</script>

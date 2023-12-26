@@ -1,0 +1,1114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CellPhoneProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CmnRoles">
+          <Key>
+            <PropertyRef Name="CmnRoleId" />
+          </Key>
+          <Property Name="CmnRoleId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+          <Property Name="RoleDescription" Type="nvarchar(max)" />
+          <Property Name="IsHead" Type="bit" />
+        </EntityType>
+        <EntityType Name="CmnUserRoles">
+          <Key>
+            <PropertyRef Name="CmnUserRoleId" />
+          </Key>
+          <Property Name="CmnUserRoleId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CmnUserId" Type="bigint" />
+          <Property Name="CmnRoleId" Type="bigint" />
+          <Property Name="AssignBy" Type="bigint" />
+          <Property Name="AssignDate" Type="datetime2" Precision="7" />
+          <Property Name="StartDate" Type="datetime2" Precision="7" />
+          <Property Name="EndDate" Type="datetime2" Precision="7" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="ActiveRoles" Type="nvarchar(max)" />
+          <Property Name="IsDefault" Type="bit" Nullable="false" />
+          <Property Name="DefaultRoleId" Type="bigint" />
+          <Property Name="DefaultRoleName" Type="nvarchar(max)" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="CmnUsers">
+          <Key>
+            <PropertyRef Name="CmnUserId" />
+          </Key>
+          <Property Name="CmnUserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserFullName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="MobileNumber" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProfilePictureUrl" Type="nvarchar" MaxLength="250" />
+          <Property Name="Designation" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeCode" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar(max)" />
+          <Property Name="AssignBy" Type="bigint" />
+          <Property Name="AssignDate" Type="datetime2" Precision="7" />
+          <Property Name="AssignStartDate" Type="datetime2" Precision="7" />
+          <Property Name="AssignEndDate" Type="datetime2" Precision="7" />
+          <Property Name="AssignRoles" Type="nvarchar(max)" />
+          <Property Name="Department" Type="nvarchar" MaxLength="200" />
+          <Property Name="Section" Type="nvarchar" MaxLength="200" />
+          <Property Name="DateOfJoining" Type="datetime2" Precision="7" />
+          <Property Name="Status" Type="nvarchar" MaxLength="100" />
+          <Property Name="ServiceLength" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+          <Property Name="ExtendedRoleName" Type="nvarchar" MaxLength="250" />
+          <Property Name="ExpiryDate" Type="datetime2" Precision="7" />
+          <Property Name="LastLoginDateTime" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsRememberMailSend" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProjectCategorization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="500" />
+          <Property Name="ProductFamily" Type="nvarchar" MaxLength="100" />
+          <Property Name="AssemblyCategory" Type="nvarchar" MaxLength="500" />
+          <Property Name="SmtCategory" Type="nvarchar" MaxLength="500" />
+          <Property Name="HousingCategory" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsComplete" Type="bit" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="ProjectMasters">
+          <Key>
+            <PropertyRef Name="ProjectMasterId" />
+          </Key>
+          <Property Name="ProjectMasterId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectTypeId" Type="bigint" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar(max)" />
+          <Property Name="SupplierId" Type="bigint" />
+          <Property Name="SupplierName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SupplierModelName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="NumberOfSample" Type="int" />
+          <Property Name="ApproxProjectFinishDate" Type="datetime" />
+          <Property Name="SupplierTrustLevel" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsScreenTestComplete" Type="bit" />
+          <Property Name="IsApproved" Type="bit" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="ApproxProjectOrderDate" Type="datetime2" Precision="7" />
+          <Property Name="ApproxShipmentDate" Type="datetime2" Precision="7" />
+          <Property Name="IsNew" Type="bit" />
+          <Property Name="IsProjectManagerAssigned" Type="bit" />
+          <Property Name="ProjectType" Type="nvarchar(max)" />
+          <Property Name="IsReorder" Type="bit" />
+          <Property Name="OsName" Type="nvarchar(max)" />
+          <Property Name="OsVersion" Type="nvarchar(max)" />
+          <Property Name="DisplaySize" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DisplayName" Type="nvarchar(max)" />
+          <Property Name="ProcessorName" Type="nvarchar(max)" />
+          <Property Name="ProcessorClock" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Chipset" Type="nvarchar(max)" />
+          <Property Name="FrontCamera" Type="nvarchar(max)" />
+          <Property Name="BackCamera" Type="nvarchar(max)" />
+          <Property Name="Ram" Type="nvarchar(max)" />
+          <Property Name="Rom" Type="nvarchar(max)" />
+          <Property Name="Battery" Type="nvarchar(max)" />
+          <Property Name="SimSlotNumber" Type="int" />
+          <Property Name="SlotType" Type="nvarchar(max)" />
+          <Property Name="ProjectStatus" Type="nvarchar(max)" />
+          <Property Name="RevisedStatus" Type="nvarchar(max)" />
+          <Property Name="ManagentComment" Type="nvarchar(max)" />
+          <Property Name="ApproximatePrice" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="GivenSampleToScreening" Type="bigint" />
+          <Property Name="FinalPrice" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="AnotherPrice" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="PricingRemarks" Type="nvarchar(max)" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+          <Property Name="ProjectNameForScreening" Type="nvarchar(max)" />
+          <Property Name="SourcingType" Type="nvarchar(max)" />
+          <Property Name="ScreeningCommentFromCommercial" Type="nvarchar(max)" />
+          <Property Name="PcbaVendorName" Type="nvarchar(max)" />
+          <Property Name="PcbaFinalVendor" Type="nvarchar(max)" />
+          <Property Name="DisplayResulution" Type="nvarchar(max)" />
+          <Property Name="DisplaySpeciality" Type="nvarchar(max)" />
+          <Property Name="TpVendor" Type="nvarchar(max)" />
+          <Property Name="TpFinalVendor" Type="nvarchar(max)" />
+          <Property Name="LcdVendor" Type="nvarchar(max)" />
+          <Property Name="LcdFinalVendor" Type="nvarchar(max)" />
+          <Property Name="HousingVendorName" Type="nvarchar(max)" />
+          <Property Name="HousingFinalVendorName" Type="nvarchar(max)" />
+          <Property Name="BackCam" Type="nvarchar(max)" />
+          <Property Name="BackCamAutoFocus" Type="nvarchar(max)" />
+          <Property Name="BackCamSensor" Type="nvarchar(max)" />
+          <Property Name="BackCamBsi" Type="nvarchar(max)" />
+          <Property Name="FrontCam" Type="nvarchar(max)" />
+          <Property Name="FrontCamAutoFocus" Type="nvarchar(max)" />
+          <Property Name="FrontCamSensor" Type="nvarchar(max)" />
+          <Property Name="FrontCamBsi" Type="nvarchar(max)" />
+          <Property Name="CpuName" Type="nvarchar(max)" />
+          <Property Name="ChipsetName" Type="nvarchar(max)" />
+          <Property Name="ChipsetFrequency" Type="nvarchar(max)" />
+          <Property Name="ChipsetBit" Type="int" />
+          <Property Name="ChipsetCore" Type="nvarchar(max)" />
+          <Property Name="MemoryBrandName" Type="nvarchar(max)" />
+          <Property Name="Gsensor" Type="bit" />
+          <Property Name="Psensor" Type="bit" />
+          <Property Name="Lsensor" Type="bit" />
+          <Property Name="Compass" Type="bit" />
+          <Property Name="Gyroscope" Type="bit" />
+          <Property Name="HallSensor" Type="bit" />
+          <Property Name="Otg" Type="bit" />
+          <Property Name="Gps" Type="bit" />
+          <Property Name="SpecialSensor" Type="nvarchar(max)" />
+          <Property Name="EarphoneConfirmPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="EarphoneSupplierName" Type="nvarchar(max)" />
+          <Property Name="ChargerRating" Type="nvarchar(max)" />
+          <Property Name="ChargerSupplierName" Type="nvarchar(max)" />
+          <Property Name="ThreeLayerScreenProtector" Type="bit" />
+          <Property Name="BatteryCoverFinishingType" Type="nvarchar(max)" />
+          <Property Name="BatteryCoverLogoType" Type="nvarchar(max)" />
+          <Property Name="OtgCable" Type="bit" />
+          <Property Name="FlashLight" Type="bit" />
+          <Property Name="SecondGen" Type="nvarchar(max)" />
+          <Property Name="ThirdGen" Type="nvarchar(max)" />
+          <Property Name="FourthGenFdd" Type="nvarchar(max)" />
+          <Property Name="FourthGenTdd" Type="nvarchar(max)" />
+          <Property Name="Cdma" Type="nvarchar(max)" />
+          <Property Name="BatteryRating" Type="nvarchar(max)" />
+          <Property Name="BatteryType" Type="nvarchar(max)" />
+          <Property Name="BatterySupplierName" Type="nvarchar(max)" />
+          <Property Name="BateeryPossibleSupplierNames" Type="nvarchar(max)" />
+          <Property Name="OrderQuantity" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Color" Type="nvarchar(max)" />
+          <Property Name="OrderNuber" Type="int" />
+          <Property Name="ApprovalReviewRemarks" Type="nvarchar(max)" />
+          <Property Name="InitialApprovalDate" Type="datetime2" Precision="7" />
+          <Property Name="FinalApprovalDate" Type="datetime2" Precision="7" />
+          <Property Name="ScreeningIssueReviewDate" Type="datetime2" Precision="7" />
+          <Property Name="ProjectModel" Type="nvarchar(max)" />
+          <Property Name="CameraVendor" Type="nvarchar(max)" />
+          <Property Name="RamVendor" Type="nvarchar(max)" />
+          <Property Name="RomVendor" Type="nvarchar(max)" />
+          <Property Name="ProjectClosingStatus" Type="nvarchar(max)" />
+          <Property Name="ProjectClosingDate" Type="datetime2" Precision="7" />
+          <Property Name="ProjectClosedBy" Type="nvarchar(max)" />
+          <Property Name="FinalApprovalBy" Type="bigint" />
+          <Property Name="InitialApprovalBy" Type="bigint" />
+          <Property Name="IsFinallyClosed" Type="bit" />
+          <Property Name="SwotAnalysisDate" Type="datetime2" Precision="7" />
+          <Property Name="SwotAnalysisBy" Type="bigint" />
+          <Property Name="SwotOpportunityRemarks" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ProjectOrderQuantityDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectMasterId" Type="bigint" />
+          <Property Name="ProjectModel" Type="nvarchar(max)" />
+          <Property Name="OrderQuantity" Type="bigint" />
+          <Property Name="RamVendor" Type="nvarchar(max)" />
+          <Property Name="RomVendor" Type="nvarchar(max)" />
+          <Property Name="VariantPrice" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="CurrencyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddedBy" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="BTRCPush" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="UpdatedBy" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+          <Property Name="VariantClosingBy" Type="bigint" />
+          <Property Name="VariantClosingDate" Type="datetime2" Precision="7" />
+          <Property Name="ClosingRemarks" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ProjectOrderShipments">
+          <Key>
+            <PropertyRef Name="ProjectOrderShipmentId" />
+          </Key>
+          <Property Name="ProjectOrderShipmentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectMasterId" Type="bigint" Nullable="false" />
+          <Property Name="ProjectPurchaseOrderFormId" Type="bigint" Nullable="false" />
+          <Property Name="ShipmentType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipmentApproxDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ShipmentFinalDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ChainaInspectionDate" Type="datetime2" Precision="7" />
+          <Property Name="ForwarderDate" Type="datetime2" Precision="7" />
+          <Property Name="FlightDepartureDate" Type="datetime2" Precision="7" />
+          <Property Name="AriportArrivalDate" Type="datetime2" Precision="7" />
+          <Property Name="BankNocDate" Type="datetime2" Precision="7" />
+          <Property Name="CnfDate" Type="datetime2" Precision="7" />
+          <Property Name="CnfPayOrderDate" Type="datetime2" Precision="7" />
+          <Property Name="AirportReleaseDate" Type="datetime2" Precision="7" />
+          <Property Name="WarehouseEntryDate" Type="datetime2" Precision="7" />
+          <Property Name="CostingDate" Type="datetime2" Precision="7" />
+          <Property Name="MarketReleaseDate" Type="datetime2" Precision="7" />
+          <Property Name="IsComplete" Type="bit" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+          <Property Name="PoWiseShipmentNumber" Type="int" />
+          <Property Name="ProjectManagerClearanceDate" Type="datetime" />
+          <Property Name="RawMaterialShipmentDate" Type="datetime" />
+          <Property Name="IQC_JigsAndFixtureShipmentDate" Type="datetime" />
+          <Property Name="ProductionJigsAndFixtureShipmentDate" Type="datetime" />
+          <Property Name="StencilShipmentDate" Type="datetime" />
+          <Property Name="PalletShipmentDate" Type="datetime" />
+          <Property Name="RawMaterialShipmentMode" Type="nvarchar" MaxLength="50" />
+          <Property Name="BdDate" Type="datetime" />
+          <Property Name="FactoryDate" Type="datetime" />
+          <Property Name="VatDeclerationDate" Type="datetime" />
+          <Property Name="VatDeclerationPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="VesselDate" Type="datetime" />
+          <Property Name="VesselType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContatinerType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipmentPercentage" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsFinalShipment" Type="nvarchar" MaxLength="50" />
+          <Property Name="ManagementApproval" Type="nvarchar" MaxLength="100" />
+          <Property Name="ManagementApprovalDate" Type="datetime2" Precision="7" />
+          <Property Name="ChinaIqcPassHundredPercent" Type="nvarchar" MaxLength="50" />
+          <Property Name="ChinaIqcFail" Type="int" />
+          <Property Name="OrderShipmentQuantity" Type="bigint" />
+          <Property Name="FocQuantity" Type="bigint" />
+        </EntityType>
+        <EntityType Name="ProjectPurchaseOrderForms">
+          <Key>
+            <PropertyRef Name="ProjectPurchaseOrderFormId" />
+          </Key>
+          <Property Name="ProjectPurchaseOrderFormId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PurchaseOrderNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Receiver" Type="nvarchar(max)" />
+          <Property Name="ProjectMasterId" Type="bigint" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar(max)" />
+          <Property Name="CompanyAddress" Type="nvarchar(max)" />
+          <Property Name="Subject" Type="nvarchar(max)" />
+          <Property Name="DescriptionHeader" Type="nvarchar(max)" />
+          <Property Name="DescriptionBody" Type="nvarchar(max)" />
+          <Property Name="Signature" Type="image" />
+          <Property Name="Quantity" Type="bigint" />
+          <Property Name="Color" Type="nvarchar(max)" />
+          <Property Name="Value" Type="nvarchar(max)" />
+          <Property Name="PoDate" Type="datetime2" Precision="7" />
+          <Property Name="IsCompleted" Type="bit" />
+          <Property Name="IsCompletedDate" Type="datetime2" Precision="7" />
+          <Property Name="PoCategory" Type="nvarchar(max)" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+          <Property Name="IsSpareConfirmedDate" Type="datetime2" Precision="7" />
+          <Property Name="IsSpareSubmittedDate" Type="datetime2" Precision="7" />
+          <Property Name="SpareSubmittedBy" Type="bigint" />
+          <Property Name="IsSpareSubmittedRemark" Type="nvarchar(max)" />
+          <Property Name="PiDate" Type="datetime2" Precision="7" />
+          <Property Name="ReminderMailFor18Month" Type="datetime2" Precision="7" />
+          <Property Name="AfterSalesPmComment" Type="nvarchar" MaxLength="500" />
+          <Property Name="ProcessTeamComment" Type="nvarchar" MaxLength="500" />
+          <Property Name="QcComment" Type="nvarchar" MaxLength="500" />
+          <Property Name="FocStatus" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsApprovedByCommercial" Type="bit" />
+          <Property Name="InchargeComment" Type="nvarchar" MaxLength="500" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="MarketClearanceDate" Type="datetime" />
+          <Property Name="BdIqcResult" Type="nvarchar(max)" />
+          <Property Name="JigsTotalPrice" Type="nvarchar" MaxLength="50" />
+          <Property Name="JigsUnitPrice" Type="nvarchar" MaxLength="50" />
+          <Property Name="RepeatOrderApproved" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApprovedBy" Type="bigint" />
+          <Property Name="ApprovedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="ProPlanTable">
+          <Key>
+            <PropertyRef Name="PlanId" />
+          </Key>
+          <Property Name="PlanId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="bigint" />
+          <Property Name="IsCharger" Type="bit" />
+          <Property Name="IsCkd" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="AddadDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <Association Name="FK_ProjectPurchaseOrderForms_ProjectMasters">
+          <End Role="ProjectMasters" Type="Self.ProjectMasters" Multiplicity="1" />
+          <End Role="ProjectPurchaseOrderForms" Type="Self.ProjectPurchaseOrderForms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMasters">
+              <PropertyRef Name="ProjectMasterId" />
+            </Principal>
+            <Dependent Role="ProjectPurchaseOrderForms">
+              <PropertyRef Name="ProjectMasterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CellPhoneProjectModelStoreContainer">
+          <EntitySet Name="CmnRoles" EntityType="Self.CmnRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CmnUserRoles" EntityType="Self.CmnUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CmnUsers" EntityType="Self.CmnUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectCategorization" EntityType="Self.ProjectCategorization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectMasters" EntityType="Self.ProjectMasters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectOrderQuantityDetails" EntityType="Self.ProjectOrderQuantityDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectOrderShipments" EntityType="Self.ProjectOrderShipments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectPurchaseOrderForms" EntityType="Self.ProjectPurchaseOrderForms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProPlanTable" EntityType="Self.ProPlanTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ProjectPurchaseOrderForms_ProjectMasters" Association="Self.FK_ProjectPurchaseOrderForms_ProjectMasters">
+            <End Role="ProjectMasters" EntitySet="ProjectMasters" />
+            <End Role="ProjectPurchaseOrderForms" EntitySet="ProjectPurchaseOrderForms" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CellPhoneProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CmnRole">
+          <Key>
+            <PropertyRef Name="CmnRoleId" />
+          </Key>
+          <Property Name="CmnRoleId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+          <Property Name="RoleDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsHead" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="CmnUserRole">
+          <Key>
+            <PropertyRef Name="CmnUserRoleId" />
+          </Key>
+          <Property Name="CmnUserRoleId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CmnUserId" Type="Int64" />
+          <Property Name="CmnRoleId" Type="Int64" />
+          <Property Name="AssignBy" Type="Int64" />
+          <Property Name="AssignDate" Type="DateTime" Precision="7" />
+          <Property Name="StartDate" Type="DateTime" Precision="7" />
+          <Property Name="EndDate" Type="DateTime" Precision="7" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="ActiveRoles" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+          <Property Name="DefaultRoleId" Type="Int64" />
+          <Property Name="DefaultRoleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="CmnUser">
+          <Key>
+            <PropertyRef Name="CmnUserId" />
+          </Key>
+          <Property Name="CmnUserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserFullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePictureUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AssignBy" Type="Int64" />
+          <Property Name="AssignDate" Type="DateTime" Precision="7" />
+          <Property Name="AssignStartDate" Type="DateTime" Precision="7" />
+          <Property Name="AssignEndDate" Type="DateTime" Precision="7" />
+          <Property Name="AssignRoles" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Section" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfJoining" Type="DateTime" Precision="7" />
+          <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceLength" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+          <Property Name="ExtendedRoleName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="7" />
+          <Property Name="LastLoginDateTime" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsRememberMailSend" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ProjectMaster">
+          <Key>
+            <PropertyRef Name="ProjectMasterId" />
+          </Key>
+          <Property Name="ProjectMasterId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectTypeId" Type="Int64" Nullable="false" />
+          <Property Name="ProjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SupplierId" Type="Int64" />
+          <Property Name="SupplierName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SupplierModelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NumberOfSample" Type="Int32" />
+          <Property Name="ApproxProjectFinishDate" Type="DateTime" Precision="3" />
+          <Property Name="SupplierTrustLevel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsScreenTestComplete" Type="Boolean" />
+          <Property Name="IsApproved" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="ApproxProjectOrderDate" Type="DateTime" Precision="7" />
+          <Property Name="ApproxShipmentDate" Type="DateTime" Precision="7" />
+          <Property Name="IsNew" Type="Boolean" />
+          <Property Name="IsProjectManagerAssigned" Type="Boolean" />
+          <Property Name="ProjectType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsReorder" Type="Boolean" />
+          <Property Name="OsName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OsVersion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DisplaySize" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessorClock" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Chipset" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FrontCamera" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BackCamera" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ram" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Rom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Battery" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SimSlotNumber" Type="Int32" />
+          <Property Name="SlotType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RevisedStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ManagentComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApproximatePrice" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="GivenSampleToScreening" Type="Int64" />
+          <Property Name="FinalPrice" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="AnotherPrice" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="PricingRemarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+          <Property Name="ProjectNameForScreening" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SourcingType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ScreeningCommentFromCommercial" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PcbaVendorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PcbaFinalVendor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayResulution" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DisplaySpeciality" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TpVendor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TpFinalVendor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LcdVendor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LcdFinalVendor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HousingVendorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HousingFinalVendorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BackCam" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BackCamAutoFocus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BackCamSensor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BackCamBsi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FrontCam" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FrontCamAutoFocus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FrontCamSensor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FrontCamBsi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CpuName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChipsetName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChipsetFrequency" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChipsetBit" Type="Int32" />
+          <Property Name="ChipsetCore" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MemoryBrandName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gsensor" Type="Boolean" />
+          <Property Name="Psensor" Type="Boolean" />
+          <Property Name="Lsensor" Type="Boolean" />
+          <Property Name="Compass" Type="Boolean" />
+          <Property Name="Gyroscope" Type="Boolean" />
+          <Property Name="HallSensor" Type="Boolean" />
+          <Property Name="Otg" Type="Boolean" />
+          <Property Name="Gps" Type="Boolean" />
+          <Property Name="SpecialSensor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EarphoneConfirmPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="EarphoneSupplierName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChargerRating" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChargerSupplierName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ThreeLayerScreenProtector" Type="Boolean" />
+          <Property Name="BatteryCoverFinishingType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BatteryCoverLogoType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OtgCable" Type="Boolean" />
+          <Property Name="FlashLight" Type="Boolean" />
+          <Property Name="SecondGen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ThirdGen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FourthGenFdd" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FourthGenTdd" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cdma" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BatteryRating" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BatteryType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BatterySupplierName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BateeryPossibleSupplierNames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderQuantity" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Color" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderNuber" Type="Int32" />
+          <Property Name="ApprovalReviewRemarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InitialApprovalDate" Type="DateTime" Precision="7" />
+          <Property Name="FinalApprovalDate" Type="DateTime" Precision="7" />
+          <Property Name="ScreeningIssueReviewDate" Type="DateTime" Precision="7" />
+          <Property Name="ProjectModel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CameraVendor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RamVendor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RomVendor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectClosingStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectClosingDate" Type="DateTime" Precision="7" />
+          <Property Name="ProjectClosedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FinalApprovalBy" Type="Int64" />
+          <Property Name="InitialApprovalBy" Type="Int64" />
+          <Property Name="IsFinallyClosed" Type="Boolean" />
+          <Property Name="SwotAnalysisDate" Type="DateTime" Precision="7" />
+          <Property Name="SwotAnalysisBy" Type="Int64" />
+          <Property Name="SwotOpportunityRemarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProjectPurchaseOrderForms" Relationship="Self.FK_ProjectPurchaseOrderForms_ProjectMasters" FromRole="ProjectMasters" ToRole="ProjectPurchaseOrderForms" />
+        </EntityType>
+        <EntityType Name="ProjectOrderQuantityDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectMasterId" Type="Int64" />
+          <Property Name="ProjectModel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderQuantity" Type="Int64" />
+          <Property Name="RamVendor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RomVendor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VariantPrice" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="CurrencyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedBy" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="BTRCPush" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="UpdatedBy" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+          <Property Name="VariantClosingBy" Type="Int64" />
+          <Property Name="VariantClosingDate" Type="DateTime" Precision="7" />
+          <Property Name="ClosingRemarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProjectOrderShipment">
+          <Key>
+            <PropertyRef Name="ProjectOrderShipmentId" />
+          </Key>
+          <Property Name="ProjectOrderShipmentId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectMasterId" Type="Int64" Nullable="false" />
+          <Property Name="ProjectPurchaseOrderFormId" Type="Int64" Nullable="false" />
+          <Property Name="ShipmentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipmentApproxDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ShipmentFinalDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ChainaInspectionDate" Type="DateTime" Precision="7" />
+          <Property Name="ForwarderDate" Type="DateTime" Precision="7" />
+          <Property Name="FlightDepartureDate" Type="DateTime" Precision="7" />
+          <Property Name="AriportArrivalDate" Type="DateTime" Precision="7" />
+          <Property Name="BankNocDate" Type="DateTime" Precision="7" />
+          <Property Name="CnfDate" Type="DateTime" Precision="7" />
+          <Property Name="CnfPayOrderDate" Type="DateTime" Precision="7" />
+          <Property Name="AirportReleaseDate" Type="DateTime" Precision="7" />
+          <Property Name="WarehouseEntryDate" Type="DateTime" Precision="7" />
+          <Property Name="CostingDate" Type="DateTime" Precision="7" />
+          <Property Name="MarketReleaseDate" Type="DateTime" Precision="7" />
+          <Property Name="IsComplete" Type="Boolean" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+          <Property Name="PoWiseShipmentNumber" Type="Int32" />
+          <Property Name="ProjectManagerClearanceDate" Type="DateTime" Precision="3" />
+          <Property Name="RawMaterialShipmentDate" Type="DateTime" Precision="3" />
+          <Property Name="IQC_JigsAndFixtureShipmentDate" Type="DateTime" Precision="3" />
+          <Property Name="ProductionJigsAndFixtureShipmentDate" Type="DateTime" Precision="3" />
+          <Property Name="StencilShipmentDate" Type="DateTime" Precision="3" />
+          <Property Name="PalletShipmentDate" Type="DateTime" Precision="3" />
+          <Property Name="RawMaterialShipmentMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BdDate" Type="DateTime" Precision="3" />
+          <Property Name="FactoryDate" Type="DateTime" Precision="3" />
+          <Property Name="VatDeclerationDate" Type="DateTime" Precision="3" />
+          <Property Name="VatDeclerationPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="VesselDate" Type="DateTime" Precision="3" />
+          <Property Name="VesselType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContatinerType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipmentPercentage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsFinalShipment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ManagementApproval" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ManagementApprovalDate" Type="DateTime" Precision="7" />
+          <Property Name="ChinaIqcPassHundredPercent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChinaIqcFail" Type="Int32" />
+          <Property Name="OrderShipmentQuantity" Type="Int64" />
+          <Property Name="FocQuantity" Type="Int64" />
+        </EntityType>
+        <EntityType Name="ProjectPurchaseOrderForm">
+          <Key>
+            <PropertyRef Name="ProjectPurchaseOrderFormId" />
+          </Key>
+          <Property Name="ProjectPurchaseOrderFormId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PurchaseOrderNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Receiver" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectMasterId" Type="Int64" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionHeader" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Signature" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Quantity" Type="Int64" />
+          <Property Name="Color" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PoDate" Type="DateTime" Precision="7" />
+          <Property Name="IsCompleted" Type="Boolean" />
+          <Property Name="IsCompletedDate" Type="DateTime" Precision="7" />
+          <Property Name="PoCategory" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+          <Property Name="IsSpareConfirmedDate" Type="DateTime" Precision="7" />
+          <Property Name="IsSpareSubmittedDate" Type="DateTime" Precision="7" />
+          <Property Name="SpareSubmittedBy" Type="Int64" />
+          <Property Name="IsSpareSubmittedRemark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PiDate" Type="DateTime" Precision="7" />
+          <Property Name="ReminderMailFor18Month" Type="DateTime" Precision="7" />
+          <Property Name="AfterSalesPmComment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessTeamComment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="QcComment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FocStatus" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsApprovedByCommercial" Type="Boolean" />
+          <Property Name="InchargeComment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="MarketClearanceDate" Type="DateTime" Precision="3" />
+          <Property Name="BdIqcResult" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JigsTotalPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JigsUnitPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RepeatOrderApproved" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedBy" Type="Int64" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="ProjectMaster" Relationship="Self.FK_ProjectPurchaseOrderForms_ProjectMasters" FromRole="ProjectPurchaseOrderForms" ToRole="ProjectMasters" />
+        </EntityType>
+        <EntityType Name="ProPlanTable">
+          <Key>
+            <PropertyRef Name="PlanId" />
+          </Key>
+          <Property Name="PlanId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int64" />
+          <Property Name="IsCharger" Type="Boolean" />
+          <Property Name="IsCkd" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="AddadDate" Type="DateTime" Precision="7" />
+        </EntityType>
+        <Association Name="FK_ProjectPurchaseOrderForms_ProjectMasters">
+          <End Role="ProjectMasters" Type="Self.ProjectMaster" Multiplicity="1" />
+          <End Role="ProjectPurchaseOrderForms" Type="Self.ProjectPurchaseOrderForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMasters">
+              <PropertyRef Name="ProjectMasterId" />
+            </Principal>
+            <Dependent Role="ProjectPurchaseOrderForms">
+              <PropertyRef Name="ProjectMasterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CellPhoneProjectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CmnRoles" EntityType="Self.CmnRole" />
+          <EntitySet Name="CmnUserRoles" EntityType="Self.CmnUserRole" />
+          <EntitySet Name="CmnUsers" EntityType="Self.CmnUser" />
+          <EntitySet Name="ProjectMasters" EntityType="Self.ProjectMaster" />
+          <EntitySet Name="ProjectOrderQuantityDetails" EntityType="Self.ProjectOrderQuantityDetail" />
+          <EntitySet Name="ProjectOrderShipments" EntityType="Self.ProjectOrderShipment" />
+          <EntitySet Name="ProjectPurchaseOrderForms" EntityType="Self.ProjectPurchaseOrderForm" />
+          <EntitySet Name="ProPlanTables" EntityType="Self.ProPlanTable" />
+          <AssociationSet Name="FK_ProjectPurchaseOrderForms_ProjectMasters" Association="Self.FK_ProjectPurchaseOrderForms_ProjectMasters">
+            <End Role="ProjectMasters" EntitySet="ProjectMasters" />
+            <End Role="ProjectPurchaseOrderForms" EntitySet="ProjectPurchaseOrderForms" />
+          </AssociationSet>
+          <EntitySet Name="ProjectCategorizations" EntityType="CellPhoneProjectModel.ProjectCategorization" />
+        </EntityContainer>
+        <EntityType Name="ProjectCategorization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ProductFamily" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AssemblyCategory" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SmtCategory" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="HousingCategory" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsComplete" Type="Boolean" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CellPhoneProjectModelStoreContainer" CdmEntityContainer="CellPhoneProjectEntities">
+          <EntitySetMapping Name="CmnRoles">
+            <EntityTypeMapping TypeName="CellPhoneProjectModel.CmnRole">
+              <MappingFragment StoreEntitySet="CmnRoles">
+                <ScalarProperty Name="CmnRoleId" ColumnName="CmnRoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
+                <ScalarProperty Name="IsHead" ColumnName="IsHead" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CmnUserRoles">
+            <EntityTypeMapping TypeName="CellPhoneProjectModel.CmnUserRole">
+              <MappingFragment StoreEntitySet="CmnUserRoles">
+                <ScalarProperty Name="CmnUserRoleId" ColumnName="CmnUserRoleId" />
+                <ScalarProperty Name="CmnUserId" ColumnName="CmnUserId" />
+                <ScalarProperty Name="CmnRoleId" ColumnName="CmnRoleId" />
+                <ScalarProperty Name="AssignBy" ColumnName="AssignBy" />
+                <ScalarProperty Name="AssignDate" ColumnName="AssignDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ActiveRoles" ColumnName="ActiveRoles" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="DefaultRoleId" ColumnName="DefaultRoleId" />
+                <ScalarProperty Name="DefaultRoleName" ColumnName="DefaultRoleName" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CmnUsers">
+            <EntityTypeMapping TypeName="CellPhoneProjectModel.CmnUser">
+              <MappingFragment StoreEntitySet="CmnUsers">
+                <ScalarProperty Name="CmnUserId" ColumnName="CmnUserId" />
+                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ProfilePictureUrl" ColumnName="ProfilePictureUrl" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="AssignBy" ColumnName="AssignBy" />
+                <ScalarProperty Name="AssignDate" ColumnName="AssignDate" />
+                <ScalarProperty Name="AssignStartDate" ColumnName="AssignStartDate" />
+                <ScalarProperty Name="AssignEndDate" ColumnName="AssignEndDate" />
+                <ScalarProperty Name="AssignRoles" ColumnName="AssignRoles" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="DateOfJoining" ColumnName="DateOfJoining" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ServiceLength" ColumnName="ServiceLength" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="ExtendedRoleName" ColumnName="ExtendedRoleName" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="LastLoginDateTime" ColumnName="LastLoginDateTime" />
+                <ScalarProperty Name="IsRememberMailSend" ColumnName="IsRememberMailSend" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectMasters">
+            <EntityTypeMapping TypeName="CellPhoneProjectModel.ProjectMaster">
+              <MappingFragment StoreEntitySet="ProjectMasters">
+                <ScalarProperty Name="ProjectMasterId" ColumnName="ProjectMasterId" />
+                <ScalarProperty Name="ProjectTypeId" ColumnName="ProjectTypeId" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+                <ScalarProperty Name="SupplierModelName" ColumnName="SupplierModelName" />
+                <ScalarProperty Name="NumberOfSample" ColumnName="NumberOfSample" />
+                <ScalarProperty Name="ApproxProjectFinishDate" ColumnName="ApproxProjectFinishDate" />
+                <ScalarProperty Name="SupplierTrustLevel" ColumnName="SupplierTrustLevel" />
+                <ScalarProperty Name="IsScreenTestComplete" ColumnName="IsScreenTestComplete" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ApproxProjectOrderDate" ColumnName="ApproxProjectOrderDate" />
+                <ScalarProperty Name="ApproxShipmentDate" ColumnName="ApproxShipmentDate" />
+                <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+                <ScalarProperty Name="IsProjectManagerAssigned" ColumnName="IsProjectManagerAssigned" />
+                <ScalarProperty Name="ProjectType" ColumnName="ProjectType" />
+                <ScalarProperty Name="IsReorder" ColumnName="IsReorder" />
+                <ScalarProperty Name="OsName" ColumnName="OsName" />
+                <ScalarProperty Name="OsVersion" ColumnName="OsVersion" />
+                <ScalarProperty Name="DisplaySize" ColumnName="DisplaySize" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ProcessorName" ColumnName="ProcessorName" />
+                <ScalarProperty Name="ProcessorClock" ColumnName="ProcessorClock" />
+                <ScalarProperty Name="Chipset" ColumnName="Chipset" />
+                <ScalarProperty Name="FrontCamera" ColumnName="FrontCamera" />
+                <ScalarProperty Name="BackCamera" ColumnName="BackCamera" />
+                <ScalarProperty Name="Ram" ColumnName="Ram" />
+                <ScalarProperty Name="Rom" ColumnName="Rom" />
+                <ScalarProperty Name="Battery" ColumnName="Battery" />
+                <ScalarProperty Name="SimSlotNumber" ColumnName="SimSlotNumber" />
+                <ScalarProperty Name="SlotType" ColumnName="SlotType" />
+                <ScalarProperty Name="ProjectStatus" ColumnName="ProjectStatus" />
+                <ScalarProperty Name="RevisedStatus" ColumnName="RevisedStatus" />
+                <ScalarProperty Name="ManagentComment" ColumnName="ManagentComment" />
+                <ScalarProperty Name="ApproximatePrice" ColumnName="ApproximatePrice" />
+                <ScalarProperty Name="GivenSampleToScreening" ColumnName="GivenSampleToScreening" />
+                <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
+                <ScalarProperty Name="AnotherPrice" ColumnName="AnotherPrice" />
+                <ScalarProperty Name="PricingRemarks" ColumnName="PricingRemarks" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="ProjectNameForScreening" ColumnName="ProjectNameForScreening" />
+                <ScalarProperty Name="SourcingType" ColumnName="SourcingType" />
+                <ScalarProperty Name="ScreeningCommentFromCommercial" ColumnName="ScreeningCommentFromCommercial" />
+                <ScalarProperty Name="PcbaVendorName" ColumnName="PcbaVendorName" />
+                <ScalarProperty Name="PcbaFinalVendor" ColumnName="PcbaFinalVendor" />
+                <ScalarProperty Name="DisplayResulution" ColumnName="DisplayResulution" />
+                <ScalarProperty Name="DisplaySpeciality" ColumnName="DisplaySpeciality" />
+                <ScalarProperty Name="TpVendor" ColumnName="TpVendor" />
+                <ScalarProperty Name="TpFinalVendor" ColumnName="TpFinalVendor" />
+                <ScalarProperty Name="LcdVendor" ColumnName="LcdVendor" />
+                <ScalarProperty Name="LcdFinalVendor" ColumnName="LcdFinalVendor" />
+                <ScalarProperty Name="HousingVendorName" ColumnName="HousingVendorName" />
+                <ScalarProperty Name="HousingFinalVendorName" ColumnName="HousingFinalVendorName" />
+                <ScalarProperty Name="BackCam" ColumnName="BackCam" />
+                <ScalarProperty Name="BackCamAutoFocus" ColumnName="BackCamAutoFocus" />
+                <ScalarProperty Name="BackCamSensor" ColumnName="BackCamSensor" />
+                <ScalarProperty Name="BackCamBsi" ColumnName="BackCamBsi" />
+                <ScalarProperty Name="FrontCam" ColumnName="FrontCam" />
+                <ScalarProperty Name="FrontCamAutoFocus" ColumnName="FrontCamAutoFocus" />
+                <ScalarProperty Name="FrontCamSensor" ColumnName="FrontCamSensor" />
+                <ScalarProperty Name="FrontCamBsi" ColumnName="FrontCamBsi" />
+                <ScalarProperty Name="CpuName" ColumnName="CpuName" />
+                <ScalarProperty Name="ChipsetName" ColumnName="ChipsetName" />
+                <ScalarProperty Name="ChipsetFrequency" ColumnName="ChipsetFrequency" />
+                <ScalarProperty Name="ChipsetBit" ColumnName="ChipsetBit" />
+                <ScalarProperty Name="ChipsetCore" ColumnName="ChipsetCore" />
+                <ScalarProperty Name="MemoryBrandName" ColumnName="MemoryBrandName" />
+                <ScalarProperty Name="Gsensor" ColumnName="Gsensor" />
+                <ScalarProperty Name="Psensor" ColumnName="Psensor" />
+                <ScalarProperty Name="Lsensor" ColumnName="Lsensor" />
+                <ScalarProperty Name="Compass" ColumnName="Compass" />
+                <ScalarProperty Name="Gyroscope" ColumnName="Gyroscope" />
+                <ScalarProperty Name="HallSensor" ColumnName="HallSensor" />
+                <ScalarProperty Name="Otg" ColumnName="Otg" />
+                <ScalarProperty Name="Gps" ColumnName="Gps" />
+                <ScalarProperty Name="SpecialSensor" ColumnName="SpecialSensor" />
+                <ScalarProperty Name="EarphoneConfirmPrice" ColumnName="EarphoneConfirmPrice" />
+                <ScalarProperty Name="EarphoneSupplierName" ColumnName="EarphoneSupplierName" />
+                <ScalarProperty Name="ChargerRating" ColumnName="ChargerRating" />
+                <ScalarProperty Name="ChargerSupplierName" ColumnName="ChargerSupplierName" />
+                <ScalarProperty Name="ThreeLayerScreenProtector" ColumnName="ThreeLayerScreenProtector" />
+                <ScalarProperty Name="BatteryCoverFinishingType" ColumnName="BatteryCoverFinishingType" />
+                <ScalarProperty Name="BatteryCoverLogoType" ColumnName="BatteryCoverLogoType" />
+                <ScalarProperty Name="OtgCable" ColumnName="OtgCable" />
+                <ScalarProperty Name="FlashLight" ColumnName="FlashLight" />
+                <ScalarProperty Name="SecondGen" ColumnName="SecondGen" />
+                <ScalarProperty Name="ThirdGen" ColumnName="ThirdGen" />
+                <ScalarProperty Name="FourthGenFdd" ColumnName="FourthGenFdd" />
+                <ScalarProperty Name="FourthGenTdd" ColumnName="FourthGenTdd" />
+                <ScalarProperty Name="Cdma" ColumnName="Cdma" />
+                <ScalarProperty Name="BatteryRating" ColumnName="BatteryRating" />
+                <ScalarProperty Name="BatteryType" ColumnName="BatteryType" />
+                <ScalarProperty Name="BatterySupplierName" ColumnName="BatterySupplierName" />
+                <ScalarProperty Name="BateeryPossibleSupplierNames" ColumnName="BateeryPossibleSupplierNames" />
+                <ScalarProperty Name="OrderQuantity" ColumnName="OrderQuantity" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="OrderNuber" ColumnName="OrderNuber" />
+                <ScalarProperty Name="ApprovalReviewRemarks" ColumnName="ApprovalReviewRemarks" />
+                <ScalarProperty Name="InitialApprovalDate" ColumnName="InitialApprovalDate" />
+                <ScalarProperty Name="FinalApprovalDate" ColumnName="FinalApprovalDate" />
+                <ScalarProperty Name="ScreeningIssueReviewDate" ColumnName="ScreeningIssueReviewDate" />
+                <ScalarProperty Name="ProjectModel" ColumnName="ProjectModel" />
+                <ScalarProperty Name="CameraVendor" ColumnName="CameraVendor" />
+                <ScalarProperty Name="RamVendor" ColumnName="RamVendor" />
+                <ScalarProperty Name="RomVendor" ColumnName="RomVendor" />
+                <ScalarProperty Name="ProjectClosingStatus" ColumnName="ProjectClosingStatus" />
+                <ScalarProperty Name="ProjectClosingDate" ColumnName="ProjectClosingDate" />
+                <ScalarProperty Name="ProjectClosedBy" ColumnName="ProjectClosedBy" />
+                <ScalarProperty Name="FinalApprovalBy" ColumnName="FinalApprovalBy" />
+                <ScalarProperty Name="InitialApprovalBy" ColumnName="InitialApprovalBy" />
+                <ScalarProperty Name="IsFinallyClosed" ColumnName="IsFinallyClosed" />
+                <ScalarProperty Name="SwotAnalysisDate" ColumnName="SwotAnalysisDate" />
+                <ScalarProperty Name="SwotAnalysisBy" ColumnName="SwotAnalysisBy" />
+                <ScalarProperty Name="SwotOpportunityRemarks" ColumnName="SwotOpportunityRemarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectOrderQuantityDetails">
+            <EntityTypeMapping TypeName="CellPhoneProjectModel.ProjectOrderQuantityDetail">
+              <MappingFragment StoreEntitySet="ProjectOrderQuantityDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProjectMasterId" ColumnName="ProjectMasterId" />
+                <ScalarProperty Name="ProjectModel" ColumnName="ProjectModel" />
+                <ScalarProperty Name="OrderQuantity" ColumnName="OrderQuantity" />
+                <ScalarProperty Name="RamVendor" ColumnName="RamVendor" />
+                <ScalarProperty Name="RomVendor" ColumnName="RomVendor" />
+                <ScalarProperty Name="VariantPrice" ColumnName="VariantPrice" />
+                <ScalarProperty Name="CurrencyName" ColumnName="CurrencyName" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="BTRCPush" ColumnName="BTRCPush" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="VariantClosingBy" ColumnName="VariantClosingBy" />
+                <ScalarProperty Name="VariantClosingDate" ColumnName="VariantClosingDate" />
+                <ScalarProperty Name="ClosingRemarks" ColumnName="ClosingRemarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectOrderShipments">
+            <EntityTypeMapping TypeName="CellPhoneProjectModel.ProjectOrderShipment">
+              <MappingFragment StoreEntitySet="ProjectOrderShipments">
+                <ScalarProperty Name="ProjectOrderShipmentId" ColumnName="ProjectOrderShipmentId" />
+                <ScalarProperty Name="ProjectMasterId" ColumnName="ProjectMasterId" />
+                <ScalarProperty Name="ProjectPurchaseOrderFormId" ColumnName="ProjectPurchaseOrderFormId" />
+                <ScalarProperty Name="ShipmentType" ColumnName="ShipmentType" />
+                <ScalarProperty Name="ShipmentApproxDate" ColumnName="ShipmentApproxDate" />
+                <ScalarProperty Name="ShipmentFinalDate" ColumnName="ShipmentFinalDate" />
+                <ScalarProperty Name="ChainaInspectionDate" ColumnName="ChainaInspectionDate" />
+                <ScalarProperty Name="ForwarderDate" ColumnName="ForwarderDate" />
+                <ScalarProperty Name="FlightDepartureDate" ColumnName="FlightDepartureDate" />
+                <ScalarProperty Name="AriportArrivalDate" ColumnName="AriportArrivalDate" />
+                <ScalarProperty Name="BankNocDate" ColumnName="BankNocDate" />
+                <ScalarProperty Name="CnfDate" ColumnName="CnfDate" />
+                <ScalarProperty Name="CnfPayOrderDate" ColumnName="CnfPayOrderDate" />
+                <ScalarProperty Name="AirportReleaseDate" ColumnName="AirportReleaseDate" />
+                <ScalarProperty Name="WarehouseEntryDate" ColumnName="WarehouseEntryDate" />
+                <ScalarProperty Name="CostingDate" ColumnName="CostingDate" />
+                <ScalarProperty Name="MarketReleaseDate" ColumnName="MarketReleaseDate" />
+                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="PoWiseShipmentNumber" ColumnName="PoWiseShipmentNumber" />
+                <ScalarProperty Name="ProjectManagerClearanceDate" ColumnName="ProjectManagerClearanceDate" />
+                <ScalarProperty Name="RawMaterialShipmentDate" ColumnName="RawMaterialShipmentDate" />
+                <ScalarProperty Name="IQC_JigsAndFixtureShipmentDate" ColumnName="IQC_JigsAndFixtureShipmentDate" />
+                <ScalarProperty Name="ProductionJigsAndFixtureShipmentDate" ColumnName="ProductionJigsAndFixtureShipmentDate" />
+                <ScalarProperty Name="StencilShipmentDate" ColumnName="StencilShipmentDate" />
+                <ScalarProperty Name="PalletShipmentDate" ColumnName="PalletShipmentDate" />
+                <ScalarProperty Name="RawMaterialShipmentMode" ColumnName="RawMaterialShipmentMode" />
+                <ScalarProperty Name="BdDate" ColumnName="BdDate" />
+                <ScalarProperty Name="FactoryDate" ColumnName="FactoryDate" />
+                <ScalarProperty Name="VatDeclerationDate" ColumnName="VatDeclerationDate" />
+                <ScalarProperty Name="VatDeclerationPrice" ColumnName="VatDeclerationPrice" />
+                <ScalarProperty Name="VesselDate" ColumnName="VesselDate" />
+                <ScalarProperty Name="VesselType" ColumnName="VesselType" />
+                <ScalarProperty Name="ContatinerType" ColumnName="ContatinerType" />
+                <ScalarProperty Name="ShipmentPercentage" ColumnName="ShipmentPercentage" />
+                <ScalarProperty Name="IsFinalShipment" ColumnName="IsFinalShipment" />
+                <ScalarProperty Name="ManagementApproval" ColumnName="ManagementApproval" />
+                <ScalarProperty Name="ManagementApprovalDate" ColumnName="ManagementApprovalDate" />
+                <ScalarProperty Name="ChinaIqcPassHundredPercent" ColumnName="ChinaIqcPassHundredPercent" />
+                <ScalarProperty Name="ChinaIqcFail" ColumnName="ChinaIqcFail" />
+                <ScalarProperty Name="OrderShipmentQuantity" ColumnName="OrderShipmentQuantity" />
+                <ScalarProperty Name="FocQuantity" ColumnName="FocQuantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectPurchaseOrderForms">
+            <EntityTypeMapping TypeName="CellPhoneProjectModel.ProjectPurchaseOrderForm">
+              <MappingFragment StoreEntitySet="ProjectPurchaseOrderForms">
+                <ScalarProperty Name="ProjectPurchaseOrderFormId" ColumnName="ProjectPurchaseOrderFormId" />
+                <ScalarProperty Name="PurchaseOrderNumber" ColumnName="PurchaseOrderNumber" />
+                <ScalarProperty Name="Receiver" ColumnName="Receiver" />
+                <ScalarProperty Name="ProjectMasterId" ColumnName="ProjectMasterId" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="DescriptionHeader" ColumnName="DescriptionHeader" />
+                <ScalarProperty Name="DescriptionBody" ColumnName="DescriptionBody" />
+                <ScalarProperty Name="Signature" ColumnName="Signature" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="PoDate" ColumnName="PoDate" />
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="IsCompletedDate" ColumnName="IsCompletedDate" />
+                <ScalarProperty Name="PoCategory" ColumnName="PoCategory" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="IsSpareConfirmedDate" ColumnName="IsSpareConfirmedDate" />
+                <ScalarProperty Name="IsSpareSubmittedDate" ColumnName="IsSpareSubmittedDate" />
+                <ScalarProperty Name="SpareSubmittedBy" ColumnName="SpareSubmittedBy" />
+                <ScalarProperty Name="IsSpareSubmittedRemark" ColumnName="IsSpareSubmittedRemark" />
+                <ScalarProperty Name="PiDate" ColumnName="PiDate" />
+                <ScalarProperty Name="ReminderMailFor18Month" ColumnName="ReminderMailFor18Month" />
+                <ScalarProperty Name="AfterSalesPmComment" ColumnName="AfterSalesPmComment" />
+                <ScalarProperty Name="ProcessTeamComment" ColumnName="ProcessTeamComment" />
+                <ScalarProperty Name="QcComment" ColumnName="QcComment" />
+                <ScalarProperty Name="FocStatus" ColumnName="FocStatus" />
+                <ScalarProperty Name="IsApprovedByCommercial" ColumnName="IsApprovedByCommercial" />
+                <ScalarProperty Name="InchargeComment" ColumnName="InchargeComment" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="MarketClearanceDate" ColumnName="MarketClearanceDate" />
+                <ScalarProperty Name="BdIqcResult" ColumnName="BdIqcResult" />
+                <ScalarProperty Name="JigsTotalPrice" ColumnName="JigsTotalPrice" />
+                <ScalarProperty Name="JigsUnitPrice" ColumnName="JigsUnitPrice" />
+                <ScalarProperty Name="RepeatOrderApproved" ColumnName="RepeatOrderApproved" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProPlanTables">
+            <EntityTypeMapping TypeName="CellPhoneProjectModel.ProPlanTable">
+              <MappingFragment StoreEntitySet="ProPlanTable">
+                <ScalarProperty Name="PlanId" ColumnName="PlanId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="IsCharger" ColumnName="IsCharger" />
+                <ScalarProperty Name="IsCkd" ColumnName="IsCkd" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="AddadDate" ColumnName="AddadDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectCategorizations">
+            <EntityTypeMapping TypeName="CellPhoneProjectModel.ProjectCategorization">
+              <MappingFragment StoreEntitySet="ProjectCategorization">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
+                <ScalarProperty Name="HousingCategory" ColumnName="HousingCategory" />
+                <ScalarProperty Name="SmtCategory" ColumnName="SmtCategory" />
+                <ScalarProperty Name="AssemblyCategory" ColumnName="AssemblyCategory" />
+                <ScalarProperty Name="ProductFamily" ColumnName="ProductFamily" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

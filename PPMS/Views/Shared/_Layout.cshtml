@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Production Planning Management System| Dashboard</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="Project management Software" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryunobstrusive")
+    @Styles.Render("~/bundles/customcss")
+    @Styles.Render("~/bundles/metroniccss")
+
+    @Scripts.Render("~/bundles/metronicjs")
+    @Styles.Render("~/bundles/datepickercss")
+    @Scripts.Render("~/bundles/datePickerjs")
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/bundles/chosencss")
+    @Scripts.Render("~/bundles/chosenjs")
+
+    <!--Custom Scripts-->
+    @Styles.Render("~/bundles/customcss")
+    @Scripts.Render("~/bundles/customjs")
+
+    <link href="@Url.Content("~/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+</head>
+<!-- END HEAD -->
+<body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
+    <!-- BEGIN HEADER -->
+    <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                @*<img src="@Url.Content("~/assets/layouts/layout4/img/logo-light.png")" alt="logo" class="logo-default" />*@
+                <img src="~/assets/layouts/layout4/css/img/onlylogo.png" class="logo-default" style="width:50px;height: 50px;margin: 10px" />
+                <div class="menu-toggler sidebar-toggler" style="margin: 30px">
+
+                </div>
+            </div>
+
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+
+            <div class="page-top">
+                <div class="top-menu">
+                    <ul class="nav navbar-nav  pull-right">
+                        @*<li class="separator hide"> </li>
+                            <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
+                                    <i class="icon-bell"></i>
+                                    <span class="badge" style="background-color: orange" id="notificationCount"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="external" id="notificationHeader">
+
+                                    </li>
+                                    <li>
+                                        <ul class="dropdown-menu-list scroller" id="notificationData" style="height: 400px;"></ul>
+                                    </li>
+                                </ul>
+                            </li>*@
+
+                        @*<li class="separator hide"> </li>*@
+                        <li class="dropdown dropdown-user dropdown-dark" style="background-color: #E5F4E7; ">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <img alt="" class="img-circle" src="@Url.Action("UserPhotos", "Home")" />
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-default">
+
+                                <li id="logout">
+                                    <a href="@Url.Action("Logout", "Home")">
+                                        <i class="icon-key"></i> Log Out
+                                    </a>
+                                    @*<a href="">
+                                            <i class="icon-key"></i> Log Out
+                                        </a>*@
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- END TOP NAVIGATION MENU -->
+            </div>
+            <!-- END PAGE TOP -->
+        </div>
+        <!-- END HEADER INNER -->
+    </div>
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar-wrapper">
+            <div class="page-sidebar navbar-collapse collapse" style="margin-left: -20px; margin-top: -20px">
+                <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                    <li class="nav-item start ">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-home"></i>
+                            <span class="title">Dashboard</span>
+                            <span class="arrow"></span>
+                        </a>
+                    </li>
+                    @*<li class="heading">
+                            <h3 class="uppercase">Menus</h3>
+                        </li>*@
+                    @*================Production===============*@
+                    @if (ViewContext.HttpContext.User.IsInRole("PRD") || ViewContext.HttpContext.User.IsInRole("MRI")
+                        || ViewContext.HttpContext.User.IsInRole("PIQC") || ViewContext.HttpContext.User.IsInRole("TRL") || ViewContext.HttpContext.User.IsInRole("RART"))
+                    {
+                        <li class="nav-item  ">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-basket"></i>
+                                <span class="title">Production</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item">
+                                    <a href="javascript:;" class="nav-link nav-toggle">
+                                        <span class="title">Create</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("CreateProduct", "Production")" class="nav-link ">
+                                                <span class="title">
+                                                    Create Product
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("CreateLine", "Production")" class="nav-link ">
+                                                <span class="title">
+                                                    Create Line
+                                                </span>
+                                            </a>
+
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("CreateTeam", "Production")" class="nav-link ">
+                                                <span class="title">
+                                                    Create Team
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Shift", "Production")" class="nav-link ">
+                                        <span class="title">
+                                            Shift Plan
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("DailyPlan", "Production")" class="nav-link ">
+                                        <span class="title">
+                                            Daily Plan
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("CapacityPlanning", "Production")" class="nav-link ">
+                                        <span class="title">
+                                            Capacity Planning
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("ForwardShiftAndCapacity", "Production")" class="nav-link ">
+                                        <span class="title" style="color:red">
+                                            Forward Shift/Capacity
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Report_CapacityPlanning", "Production")" class="nav-link ">
+                                        <span class="title">
+                                            Report_Capacity
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("ProjectCategorize", "Production")" class="nav-link ">
+                                        <span class="title">
+                                            Categorization
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("FactoryHoliday", "Production")" class="nav-link ">
+                                        <span class="title">
+                                            Factory Holiday
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("HandsetPlanning", "Production")" class="nav-link ">
+                                        <span class="title">
+                                            Inv, IQC, Trial, Rel  Planning
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("InventoryReport", "Production")" class="nav-link ">
+                                        <span class="title">
+                                            Inv, IQC, Trial, Rel Report
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+
+                </ul>
+                <!-- END SIDEBAR MENU -->
+            </div>
+            <!-- END SIDEBAR -->
+        </div>
+
+        <div class="page-content-wrapper">
+
+            <!-- BEGIN CONTENT BODY -->
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @RenderBody()
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- END PAGE BASE CONTENT -->
+            </div>
+            <!-- END CONTENT BODY -->
+        </div>
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN FOOTER -->
+    <div class="page-footer">
+        <div class="page-footer-inner">
+            PPMS | Copyright©Walton Group V-1.0
+        </div>
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
+        </div>
+    </div>
+
+    @*<script>
+            $(function () {
+                $('.date_picker').Zebra_DatePicker({
+                    default_position: 'below'
+                });
+                $('.datepicker').datepicker({
+                    format: 'dd/mm/yyyy',
+                    autoclose: true,
+                    clearBtn: true,
+                    todayHighlight: true
+                });
+                $('.dtTable').DataTable({
+                    select: true
+                });
+
+
+                $('.ddChosen').chosen();
+            });
+
+
+        </script>*@
+    @RenderSection("scripts", false)
+</body>
+</html>

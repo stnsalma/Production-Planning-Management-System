@@ -1,0 +1,1413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PPMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GovernmentHolidayTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GovernmentHoliday" Type="nvarchar" MaxLength="200" />
+          <Property Name="HolidayDate" Type="datetime2" Precision="7" />
+          <Property Name="HolidayStartDate" Type="datetime2" Precision="7" />
+          <Property Name="HolidayEndDate" Type="datetime2" Precision="7" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_CapacityPlanning">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Team" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductionType" Type="nvarchar" MaxLength="100" />
+          <Property Name="CategoryName" Type="nvarchar(max)" />
+          <Property Name="Percentage" Type="int" />
+          <Property Name="QuantityRange" Type="nvarchar" MaxLength="100" />
+          <Property Name="TotalCapacity" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Month" Type="nvarchar" MaxLength="50" />
+          <Property Name="MonNum" Type="int" />
+          <Property Name="Year" Type="int" />
+          <Property Name="Product" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar(max)" />
+          <Property Name="ProductionType" Type="nvarchar" MaxLength="100" />
+          <Property Name="PhoneType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Month" Type="nvarchar" MaxLength="50" />
+          <Property Name="MonNum" Type="int" />
+          <Property Name="Year" Type="int" />
+          <Property Name="Product" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_DailyPlan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductionType" Type="nvarchar" MaxLength="100" />
+          <Property Name="EffectiveDate" Type="datetime2" Precision="7" />
+          <Property Name="Line" Type="nvarchar" MaxLength="500" />
+          <Property Name="Shift_1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Shift_2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Shift_3" Type="nvarchar" MaxLength="50" />
+          <Property Name="Month" Type="nvarchar" MaxLength="50" />
+          <Property Name="MonNum" Type="int" />
+          <Property Name="Year" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_HandsetAssemblyAndPacking">
+          <Key>
+            <PropertyRef Name="HandsetAssemblyId" />
+          </Key>
+          <Property Name="HandsetAssemblyId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlanId" Type="bigint" Nullable="false" />
+          <Property Name="ProjectMasterID" Type="bigint" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="200" />
+          <Property Name="OrderNumber" Type="int" />
+          <Property Name="PoCategory" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaterialReceive_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="MaterialReceive_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HAssemblyMaterialDelayReason" Type="nvarchar(max)" />
+          <Property Name="HAssemblyMaterialAttachment" Type="nvarchar(max)" />
+          <Property Name="Iqc_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Iqc_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Iqc_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="Iqc_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HAssemblyIqcDelayReason" Type="nvarchar(max)" />
+          <Property Name="HAssemblyIqcAttachment" Type="nvarchar(max)" />
+          <Property Name="Trial_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Trial_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Trial_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="Trial_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HAssemblyTrialDelayReason" Type="nvarchar(max)" />
+          <Property Name="SoftwareConfirmation_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="SoftwareConfirmation_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="SoftwareConfirmation_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="SoftwareConfirmation_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HAssemblySoftComDelayReason" Type="nvarchar(max)" />
+          <Property Name="HAssemblySoftComAttachment" Type="nvarchar(max)" />
+          <Property Name="RndConfirmation_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="RndConfirmation_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="RndConfirmation_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="RndConfirmation_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HAssemblyRndDelayReason" Type="nvarchar(max)" />
+          <Property Name="HAssemblyRndAttachment" Type="nvarchar(max)" />
+          <Property Name="AssemblyProduction_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="AssemblyProduction_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="AssemblyProduction_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="AssemblyProduction_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HAssemblyDelayReason" Type="nvarchar(max)" />
+          <Property Name="HAssemblyAttachment" Type="nvarchar(max)" />
+          <Property Name="Packing_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Packing_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Packing_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="Packing_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HAssemblyPackingDelayReason" Type="nvarchar(max)" />
+          <Property Name="TotalOrderQuantity" Type="bigint" />
+          <Property Name="HandsetAssemAndPackStatus" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="MaterialRules" Type="nvarchar" MaxLength="500" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_HandsetBattery">
+          <Key>
+            <PropertyRef Name="HandsetBatteryId" />
+          </Key>
+          <Property Name="HandsetBatteryId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlanId" Type="bigint" Nullable="false" />
+          <Property Name="ProjectMasterID" Type="bigint" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="200" />
+          <Property Name="OrderNumber" Type="int" />
+          <Property Name="PoCategory" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaterialReceive_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="MaterialReceive_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HBatteryMaterialDelayReason" Type="nvarchar(max)" />
+          <Property Name="HBatteryMaterialAttachment" Type="nvarchar(max)" />
+          <Property Name="Iqc_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Iqc_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Iqc_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="Iqc_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HBatteryIqcDelayReason" Type="nvarchar(max)" />
+          <Property Name="HBatteryIqcAttachment" Type="nvarchar(max)" />
+          <Property Name="Trial_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Trial_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Trial_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="Trial_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HBatteryTrialDelayReason" Type="nvarchar(max)" />
+          <Property Name="HBatteryTrialAttachment" Type="nvarchar(max)" />
+          <Property Name="ReliabilityTest_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="ReliabilityTest_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="ReliabilityTest_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="ReliabilityTest_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HBatteryReliabilityDelayReason" Type="nvarchar(max)" />
+          <Property Name="HBatteryReliabilityAttachment" Type="nvarchar(max)" />
+          <Property Name="MassProduction_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="MassProduction_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="MassProduction_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="MassProduction_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HBatteryMpDelayReason" Type="nvarchar(max)" />
+          <Property Name="HBatteryMpAttachment" Type="nvarchar(max)" />
+          <Property Name="AgingTest_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="AgingTest_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="AgingTest_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="AgingTest_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HBatteryAgingDelayReason" Type="nvarchar(max)" />
+          <Property Name="HBatteryAgingAttachment" Type="nvarchar(max)" />
+          <Property Name="Packing_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Packing_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Packing_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="Packing_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HBatteryPackingDelayReason" Type="nvarchar(max)" />
+          <Property Name="TotalOrderQuantity" Type="bigint" />
+          <Property Name="HandsetBatteryStatus" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="MaterialRules" Type="nvarchar" MaxLength="500" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_HandsetHousing">
+          <Key>
+            <PropertyRef Name="HandsetHousingId" />
+          </Key>
+          <Property Name="HandsetHousingId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlanId" Type="bigint" Nullable="false" />
+          <Property Name="ProjectMasterID" Type="bigint" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="200" />
+          <Property Name="OrderNumber" Type="int" />
+          <Property Name="PoCategory" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaterialReceive_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="MaterialReceive_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HHousingMaterialDelayReason" Type="nvarchar(max)" />
+          <Property Name="HHousingMaterialAttachment" Type="nvarchar(max)" />
+          <Property Name="Iqc_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Iqc_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Iqc_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="Iqc_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HHousingIqcDelayReason" Type="nvarchar(max)" />
+          <Property Name="HHousingIqcAttachment" Type="nvarchar(max)" />
+          <Property Name="Trial_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Trial_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Trial_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="Trial_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HHousingTrialDelayReason" Type="nvarchar(max)" />
+          <Property Name="HHousingTrialAttachment" Type="nvarchar(max)" />
+          <Property Name="ReliabilityTest_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="ReliabilityTest_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="ReliabilityTest_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="ReliabilityTest_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HHousingReliabilityDelayReason" Type="nvarchar(max)" />
+          <Property Name="HHousingReliabilityAttachment" Type="nvarchar(max)" />
+          <Property Name="MassProduction_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="MassProduction_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="MassProduction_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="MassProduction_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HHousingMpDelayReason" Type="nvarchar(max)" />
+          <Property Name="HHousingMpAttachment" Type="nvarchar(max)" />
+          <Property Name="Packing_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Packing_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Packing_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="Packing_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HHousingPackingDelayReason" Type="nvarchar(max)" />
+          <Property Name="TotalOrderQuantity" Type="bigint" />
+          <Property Name="HandsetHousingStatus" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="MaterialRules" Type="nvarchar" MaxLength="500" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_HandsetSmt">
+          <Key>
+            <PropertyRef Name="HandsetSmtId" />
+          </Key>
+          <Property Name="HandsetSmtId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlanId" Type="bigint" Nullable="false" />
+          <Property Name="ProjectMasterID" Type="bigint" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="200" />
+          <Property Name="OrderNumber" Type="int" />
+          <Property Name="PoCategory" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaterialReceive_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="MaterialReceive_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HandsetSmtDelayReason" Type="nvarchar(max)" />
+          <Property Name="HandsetSmtAttachment" Type="nvarchar(max)" />
+          <Property Name="Iqc_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Iqc_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Iqc_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="Iqc_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HandsetIqcDelayReason" Type="nvarchar(max)" />
+          <Property Name="HandsetIqcAttachment" Type="nvarchar(max)" />
+          <Property Name="Trial_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Trial_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Trial_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="Trial_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HandsetTrialDelayReason" Type="nvarchar(max)" />
+          <Property Name="HandsetTrialAttachment" Type="nvarchar(max)" />
+          <Property Name="MassProduction_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="MassProduction_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="MassProduction_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="MassProduction_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HandsetMpDelayReason" Type="nvarchar(max)" />
+          <Property Name="HandsetMpAttachment" Type="nvarchar(max)" />
+          <Property Name="Packing_SDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Packing_EDate_Auto" Type="datetime2" Precision="7" />
+          <Property Name="Packing_SDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="Packing_EDate_Manual" Type="datetime2" Precision="7" />
+          <Property Name="HandsetPackingDelayReason" Type="nvarchar(max)" />
+          <Property Name="TotalOrderQuantity" Type="bigint" />
+          <Property Name="HandsetSmtStatus" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="MaterialRules" Type="nvarchar" MaxLength="500" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_Line">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductionType" Type="nvarchar" MaxLength="100" />
+          <Property Name="Line" Type="nvarchar" MaxLength="500" />
+          <Property Name="LineType" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProductionDaysPerMonth" Type="int" />
+          <Property Name="HoursPerShift" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ShiftPerDay" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_MaterialRules">
+          <Key>
+            <PropertyRef Name="MaterialRulesId" />
+          </Key>
+          <Property Name="MaterialRulesId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProductionUnit" Type="nvarchar" MaxLength="100" />
+          <Property Name="TypeOfWork" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="SerialNo" Type="int" />
+          <Property Name="ProductionUnitSerialNo" Type="int" />
+          <Property Name="MaterialRules" Type="nvarchar" MaxLength="500" />
+          <Property Name="StartDays" Type="int" />
+          <Property Name="EndDays" Type="int" />
+          <Property Name="Day_1" Type="int" />
+          <Property Name="Day_2" Type="int" />
+          <Property Name="Day_3" Type="int" />
+          <Property Name="Day_4" Type="int" />
+          <Property Name="Day_5" Type="int" />
+          <Property Name="Day_6" Type="int" />
+          <Property Name="Day_7" Type="int" />
+          <Property Name="Day_8" Type="int" />
+          <Property Name="Day_9" Type="int" />
+          <Property Name="Day_10" Type="int" />
+          <Property Name="Day_11" Type="int" />
+          <Property Name="Day_12" Type="int" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_PlanTable">
+          <Key>
+            <PropertyRef Name="PlanId" />
+          </Key>
+          <Property Name="PlanId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectMasterID" Type="bigint" />
+          <Property Name="IsCharger" Type="bit" />
+          <Property Name="IsHandset" Type="bit" />
+          <Property Name="IsEarphone" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductionType" Type="nvarchar" MaxLength="100" />
+          <Property Name="Product" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProductFamily" Type="nvarchar" MaxLength="100" />
+          <Property Name="ChangeOverTime" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CategoryName" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_Shift">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductionType" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Month" Type="nvarchar" MaxLength="50" />
+          <Property Name="MonNum" Type="int" />
+          <Property Name="Year" Type="int" />
+          <Property Name="Line" Type="nvarchar" MaxLength="50" />
+          <Property Name="Shift_1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Shift_2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Shift_3" Type="nvarchar" MaxLength="50" />
+          <Property Name="Shift_4" Type="nvarchar" MaxLength="50" />
+          <Property Name="Shift_5" Type="nvarchar" MaxLength="50" />
+          <Property Name="Shift_6" Type="nvarchar" MaxLength="50" />
+          <Property Name="Shift_7" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Product" Type="nvarchar" MaxLength="50" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_Team">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Team" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductionType" Type="nvarchar" MaxLength="100" />
+          <Property Name="PhoneType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Product" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductionType" Type="nvarchar" MaxLength="100" />
+          <Property Name="Product" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProjectCategorization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="500" />
+          <Property Name="ProductFamily" Type="nvarchar" MaxLength="100" />
+          <Property Name="AssemblyCategory" Type="nvarchar" MaxLength="500" />
+          <Property Name="SmtCategory" Type="nvarchar" MaxLength="500" />
+          <Property Name="HousingCategory" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsComplete" Type="bit" />
+          <Property Name="Added" Type="bigint" />
+          <Property Name="AddedDate" Type="datetime2" Precision="7" />
+          <Property Name="Updated" Type="bigint" />
+          <Property Name="UpdatedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityContainer Name="PPMSModelStoreContainer">
+          <EntitySet Name="GovernmentHolidayTable" EntityType="Self.GovernmentHolidayTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_CapacityPlanning" EntityType="Self.Pro_CapacityPlanning" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_Category" EntityType="Self.Pro_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_DailyPlan" EntityType="Self.Pro_DailyPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_HandsetAssemblyAndPacking" EntityType="Self.Pro_HandsetAssemblyAndPacking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_HandsetBattery" EntityType="Self.Pro_HandsetBattery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_HandsetHousing" EntityType="Self.Pro_HandsetHousing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_HandsetSmt" EntityType="Self.Pro_HandsetSmt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_Line" EntityType="Self.Pro_Line" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_MaterialRules" EntityType="Self.Pro_MaterialRules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_PlanTable" EntityType="Self.Pro_PlanTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_Product" EntityType="Self.Pro_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_Shift" EntityType="Self.Pro_Shift" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_Team" EntityType="Self.Pro_Team" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_Type" EntityType="Self.Pro_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectCategorization" EntityType="Self.ProjectCategorization" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PPMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GovernmentHolidayTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GovernmentHoliday" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HolidayDate" Type="DateTime" Precision="7" />
+          <Property Name="HolidayStartDate" Type="DateTime" Precision="7" />
+          <Property Name="HolidayEndDate" Type="DateTime" Precision="7" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_CapacityPlanning">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Team" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductionType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Percentage" Type="Int32" />
+          <Property Name="QuantityRange" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TotalCapacity" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Month" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MonNum" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Product" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProductionType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Month" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MonNum" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Product" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_DailyPlan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductionType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EffectiveDate" Type="DateTime" Precision="7" />
+          <Property Name="Line" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Month" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MonNum" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_HandsetAssemblyAndPacking">
+          <Key>
+            <PropertyRef Name="HandsetAssemblyId" />
+          </Key>
+          <Property Name="HandsetAssemblyId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlanId" Type="Int64" Nullable="false" />
+          <Property Name="ProjectMasterID" Type="Int64" />
+          <Property Name="ProjectName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OrderNumber" Type="Int32" />
+          <Property Name="PoCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialReceive_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="MaterialReceive_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Trial_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Trial_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Trial_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Trial_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="SoftwareConfirmation_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="SoftwareConfirmation_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="SoftwareConfirmation_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="SoftwareConfirmation_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="RndConfirmation_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="RndConfirmation_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="RndConfirmation_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="RndConfirmation_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="AssemblyProduction_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="AssemblyProduction_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="AssemblyProduction_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="AssemblyProduction_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Packing_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Packing_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Packing_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Packing_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="TotalOrderQuantity" Type="Int64" />
+          <Property Name="HandsetAssemAndPackStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="MaterialRules" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+          <Property Name="HAssemblyMaterialDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HAssemblyIqcDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HAssemblyTrialDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HAssemblySoftComDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HAssemblyRndDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HAssemblyDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HAssemblyPackingDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HAssemblyMaterialAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HAssemblyIqcAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HAssemblySoftComAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HAssemblyRndAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HAssemblyAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Pro_HandsetBattery">
+          <Key>
+            <PropertyRef Name="HandsetBatteryId" />
+          </Key>
+          <Property Name="HandsetBatteryId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlanId" Type="Int64" Nullable="false" />
+          <Property Name="ProjectMasterID" Type="Int64" />
+          <Property Name="ProjectName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OrderNumber" Type="Int32" />
+          <Property Name="PoCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialReceive_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="MaterialReceive_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Trial_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Trial_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Trial_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Trial_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="ReliabilityTest_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="ReliabilityTest_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="ReliabilityTest_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="ReliabilityTest_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="MassProduction_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="MassProduction_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="MassProduction_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="MassProduction_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="AgingTest_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="AgingTest_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="AgingTest_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="AgingTest_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Packing_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Packing_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Packing_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Packing_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="TotalOrderQuantity" Type="Int64" />
+          <Property Name="HandsetBatteryStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="MaterialRules" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+          <Property Name="HBatteryMaterialDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HBatteryIqcDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HBatteryTrialDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HBatteryReliabilityDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HBatteryMpDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HBatteryAgingDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HBatteryPackingDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HBatteryMaterialAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HBatteryIqcAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HBatteryTrialAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HBatteryReliabilityAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HBatteryMpAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HBatteryAgingAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Pro_HandsetHousing">
+          <Key>
+            <PropertyRef Name="HandsetHousingId" />
+          </Key>
+          <Property Name="HandsetHousingId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlanId" Type="Int64" Nullable="false" />
+          <Property Name="ProjectMasterID" Type="Int64" />
+          <Property Name="ProjectName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OrderNumber" Type="Int32" />
+          <Property Name="PoCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialReceive_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="MaterialReceive_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Trial_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Trial_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Trial_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Trial_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="ReliabilityTest_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="ReliabilityTest_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="ReliabilityTest_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="ReliabilityTest_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="MassProduction_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="MassProduction_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="MassProduction_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="MassProduction_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Packing_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Packing_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Packing_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Packing_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="TotalOrderQuantity" Type="Int64" />
+          <Property Name="HandsetHousingStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="MaterialRules" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+          <Property Name="HHousingMaterialDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HHousingIqcDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HHousingTrialDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HHousingReliabilityDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HHousingMpDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HHousingPackingDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HHousingMaterialAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HHousingIqcAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HHousingTrialAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HHousingReliabilityAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HHousingMpAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Pro_HandsetSmt">
+          <Key>
+            <PropertyRef Name="HandsetSmtId" />
+          </Key>
+          <Property Name="HandsetSmtId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlanId" Type="Int64" Nullable="false" />
+          <Property Name="ProjectMasterID" Type="Int64" />
+          <Property Name="ProjectName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OrderNumber" Type="Int32" />
+          <Property Name="PoCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialReceive_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="MaterialReceive_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="MaterialReceive_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Iqc_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Trial_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Trial_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Trial_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Trial_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="MassProduction_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="MassProduction_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="MassProduction_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="MassProduction_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Packing_SDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Packing_EDate_Auto" Type="DateTime" Precision="7" />
+          <Property Name="Packing_SDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="Packing_EDate_Manual" Type="DateTime" Precision="7" />
+          <Property Name="TotalOrderQuantity" Type="Int64" />
+          <Property Name="HandsetSmtStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="MaterialRules" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+          <Property Name="HandsetSmtDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HandsetIqcDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HandsetTrialDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HandsetMpDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HandsetPackingDelayReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HandsetSmtAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HandsetIqcAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HandsetTrialAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HandsetMpAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Pro_Line">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductionType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Line" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LineType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProductionDaysPerMonth" Type="Int32" />
+          <Property Name="HoursPerShift" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ShiftPerDay" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_MaterialRules">
+          <Key>
+            <PropertyRef Name="MaterialRulesId" />
+          </Key>
+          <Property Name="MaterialRulesId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProductionUnit" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TypeOfWork" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="SerialNo" Type="Int32" />
+          <Property Name="ProductionUnitSerialNo" Type="Int32" />
+          <Property Name="MaterialRules" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="StartDays" Type="Int32" />
+          <Property Name="EndDays" Type="Int32" />
+          <Property Name="Day_1" Type="Int32" />
+          <Property Name="Day_2" Type="Int32" />
+          <Property Name="Day_3" Type="Int32" />
+          <Property Name="Day_4" Type="Int32" />
+          <Property Name="Day_5" Type="Int32" />
+          <Property Name="Day_6" Type="Int32" />
+          <Property Name="Day_7" Type="Int32" />
+          <Property Name="Day_8" Type="Int32" />
+          <Property Name="Day_9" Type="Int32" />
+          <Property Name="Day_10" Type="Int32" />
+          <Property Name="Day_11" Type="Int32" />
+          <Property Name="Day_12" Type="Int32" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_PlanTable">
+          <Key>
+            <PropertyRef Name="PlanId" />
+          </Key>
+          <Property Name="PlanId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectMasterID" Type="Int64" />
+          <Property Name="IsCharger" Type="Boolean" />
+          <Property Name="IsHandset" Type="Boolean" />
+          <Property Name="IsEarphone" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductionType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Product" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProductFamily" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ChangeOverTime" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CategoryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_Shift">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductionType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Month" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MonNum" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Line" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_6" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_7" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Product" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_Team">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Team" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductionType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Product" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pro_Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductionType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Product" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="PPMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GovernmentHolidayTables" EntityType="Self.GovernmentHolidayTable" />
+          <EntitySet Name="Pro_CapacityPlanning" EntityType="Self.Pro_CapacityPlanning" />
+          <EntitySet Name="Pro_Category" EntityType="Self.Pro_Category" />
+          <EntitySet Name="Pro_DailyPlan" EntityType="Self.Pro_DailyPlan" />
+          <EntitySet Name="Pro_HandsetAssemblyAndPacking" EntityType="Self.Pro_HandsetAssemblyAndPacking" />
+          <EntitySet Name="Pro_HandsetBattery" EntityType="Self.Pro_HandsetBattery" />
+          <EntitySet Name="Pro_HandsetHousing" EntityType="Self.Pro_HandsetHousing" />
+          <EntitySet Name="Pro_HandsetSmt" EntityType="Self.Pro_HandsetSmt" />
+          <EntitySet Name="Pro_Line" EntityType="Self.Pro_Line" />
+          <EntitySet Name="Pro_MaterialRules" EntityType="Self.Pro_MaterialRules" />
+          <EntitySet Name="Pro_PlanTable" EntityType="Self.Pro_PlanTable" />
+          <EntitySet Name="Pro_Product" EntityType="Self.Pro_Product" />
+          <EntitySet Name="Pro_Shift" EntityType="Self.Pro_Shift" />
+          <EntitySet Name="Pro_Team" EntityType="Self.Pro_Team" />
+          <EntitySet Name="Pro_Type" EntityType="Self.Pro_Type" />
+          <EntitySet Name="ProjectCategorizations" EntityType="PPMSModel.ProjectCategorization" />
+        </EntityContainer>
+        <EntityType Name="ProjectCategorization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ProductFamily" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AssemblyCategory" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SmtCategory" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="HousingCategory" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsComplete" Type="Boolean" />
+          <Property Name="Added" Type="Int64" />
+          <Property Name="AddedDate" Type="DateTime" Precision="7" />
+          <Property Name="Updated" Type="Int64" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="7" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PPMSModelStoreContainer" CdmEntityContainer="PPMSEntities">
+          <EntitySetMapping Name="GovernmentHolidayTables">
+            <EntityTypeMapping TypeName="PPMSModel.GovernmentHolidayTable">
+              <MappingFragment StoreEntitySet="GovernmentHolidayTable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GovernmentHoliday" ColumnName="GovernmentHoliday" />
+                <ScalarProperty Name="HolidayDate" ColumnName="HolidayDate" />
+                <ScalarProperty Name="HolidayStartDate" ColumnName="HolidayStartDate" />
+                <ScalarProperty Name="HolidayEndDate" ColumnName="HolidayEndDate" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_CapacityPlanning">
+            <EntityTypeMapping TypeName="PPMSModel.Pro_CapacityPlanning">
+              <MappingFragment StoreEntitySet="Pro_CapacityPlanning">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="ProductionType" ColumnName="ProductionType" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="QuantityRange" ColumnName="QuantityRange" />
+                <ScalarProperty Name="TotalCapacity" ColumnName="TotalCapacity" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="MonNum" ColumnName="MonNum" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_Category">
+            <EntityTypeMapping TypeName="PPMSModel.Pro_Category">
+              <MappingFragment StoreEntitySet="Pro_Category">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="ProductionType" ColumnName="ProductionType" />
+                <ScalarProperty Name="PhoneType" ColumnName="PhoneType" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="MonNum" ColumnName="MonNum" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_DailyPlan">
+            <EntityTypeMapping TypeName="PPMSModel.Pro_DailyPlan">
+              <MappingFragment StoreEntitySet="Pro_DailyPlan">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductionType" ColumnName="ProductionType" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="Shift_1" ColumnName="Shift_1" />
+                <ScalarProperty Name="Shift_2" ColumnName="Shift_2" />
+                <ScalarProperty Name="Shift_3" ColumnName="Shift_3" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="MonNum" ColumnName="MonNum" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_HandsetAssemblyAndPacking">
+            <EntityTypeMapping TypeName="PPMSModel.Pro_HandsetAssemblyAndPacking">
+              <MappingFragment StoreEntitySet="Pro_HandsetAssemblyAndPacking">
+                <ScalarProperty Name="HAssemblyAttachment" ColumnName="HAssemblyAttachment" />
+                <ScalarProperty Name="HAssemblyRndAttachment" ColumnName="HAssemblyRndAttachment" />
+                <ScalarProperty Name="HAssemblySoftComAttachment" ColumnName="HAssemblySoftComAttachment" />
+                <ScalarProperty Name="HAssemblyIqcAttachment" ColumnName="HAssemblyIqcAttachment" />
+                <ScalarProperty Name="HAssemblyMaterialAttachment" ColumnName="HAssemblyMaterialAttachment" />
+                <ScalarProperty Name="HAssemblyPackingDelayReason" ColumnName="HAssemblyPackingDelayReason" />
+                <ScalarProperty Name="HAssemblyDelayReason" ColumnName="HAssemblyDelayReason" />
+                <ScalarProperty Name="HAssemblyRndDelayReason" ColumnName="HAssemblyRndDelayReason" />
+                <ScalarProperty Name="HAssemblySoftComDelayReason" ColumnName="HAssemblySoftComDelayReason" />
+                <ScalarProperty Name="HAssemblyTrialDelayReason" ColumnName="HAssemblyTrialDelayReason" />
+                <ScalarProperty Name="HAssemblyIqcDelayReason" ColumnName="HAssemblyIqcDelayReason" />
+                <ScalarProperty Name="HAssemblyMaterialDelayReason" ColumnName="HAssemblyMaterialDelayReason" />
+                <ScalarProperty Name="HandsetAssemblyId" ColumnName="HandsetAssemblyId" />
+                <ScalarProperty Name="PlanId" ColumnName="PlanId" />
+                <ScalarProperty Name="ProjectMasterID" ColumnName="ProjectMasterID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="PoCategory" ColumnName="PoCategory" />
+                <ScalarProperty Name="MaterialReceive_SDate_Auto" ColumnName="MaterialReceive_SDate_Auto" />
+                <ScalarProperty Name="MaterialReceive_EDate_Auto" ColumnName="MaterialReceive_EDate_Auto" />
+                <ScalarProperty Name="MaterialReceive_SDate_Manual" ColumnName="MaterialReceive_SDate_Manual" />
+                <ScalarProperty Name="MaterialReceive_EDate_Manual" ColumnName="MaterialReceive_EDate_Manual" />
+                <ScalarProperty Name="Iqc_SDate_Auto" ColumnName="Iqc_SDate_Auto" />
+                <ScalarProperty Name="Iqc_EDate_Auto" ColumnName="Iqc_EDate_Auto" />
+                <ScalarProperty Name="Iqc_SDate_Manual" ColumnName="Iqc_SDate_Manual" />
+                <ScalarProperty Name="Iqc_EDate_Manual" ColumnName="Iqc_EDate_Manual" />
+                <ScalarProperty Name="Trial_SDate_Auto" ColumnName="Trial_SDate_Auto" />
+                <ScalarProperty Name="Trial_EDate_Auto" ColumnName="Trial_EDate_Auto" />
+                <ScalarProperty Name="Trial_SDate_Manual" ColumnName="Trial_SDate_Manual" />
+                <ScalarProperty Name="Trial_EDate_Manual" ColumnName="Trial_EDate_Manual" />
+                <ScalarProperty Name="SoftwareConfirmation_SDate_Auto" ColumnName="SoftwareConfirmation_SDate_Auto" />
+                <ScalarProperty Name="SoftwareConfirmation_EDate_Auto" ColumnName="SoftwareConfirmation_EDate_Auto" />
+                <ScalarProperty Name="SoftwareConfirmation_SDate_Manual" ColumnName="SoftwareConfirmation_SDate_Manual" />
+                <ScalarProperty Name="SoftwareConfirmation_EDate_Manual" ColumnName="SoftwareConfirmation_EDate_Manual" />
+                <ScalarProperty Name="RndConfirmation_SDate_Auto" ColumnName="RndConfirmation_SDate_Auto" />
+                <ScalarProperty Name="RndConfirmation_EDate_Auto" ColumnName="RndConfirmation_EDate_Auto" />
+                <ScalarProperty Name="RndConfirmation_SDate_Manual" ColumnName="RndConfirmation_SDate_Manual" />
+                <ScalarProperty Name="RndConfirmation_EDate_Manual" ColumnName="RndConfirmation_EDate_Manual" />
+                <ScalarProperty Name="AssemblyProduction_SDate_Auto" ColumnName="AssemblyProduction_SDate_Auto" />
+                <ScalarProperty Name="AssemblyProduction_EDate_Auto" ColumnName="AssemblyProduction_EDate_Auto" />
+                <ScalarProperty Name="AssemblyProduction_SDate_Manual" ColumnName="AssemblyProduction_SDate_Manual" />
+                <ScalarProperty Name="AssemblyProduction_EDate_Manual" ColumnName="AssemblyProduction_EDate_Manual" />
+                <ScalarProperty Name="Packing_SDate_Auto" ColumnName="Packing_SDate_Auto" />
+                <ScalarProperty Name="Packing_EDate_Auto" ColumnName="Packing_EDate_Auto" />
+                <ScalarProperty Name="Packing_SDate_Manual" ColumnName="Packing_SDate_Manual" />
+                <ScalarProperty Name="Packing_EDate_Manual" ColumnName="Packing_EDate_Manual" />
+                <ScalarProperty Name="TotalOrderQuantity" ColumnName="TotalOrderQuantity" />
+                <ScalarProperty Name="HandsetAssemAndPackStatus" ColumnName="HandsetAssemAndPackStatus" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MaterialRules" ColumnName="MaterialRules" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_HandsetBattery">
+            <EntityTypeMapping TypeName="PPMSModel.Pro_HandsetBattery">
+              <MappingFragment StoreEntitySet="Pro_HandsetBattery">
+                <ScalarProperty Name="HBatteryAgingAttachment" ColumnName="HBatteryAgingAttachment" />
+                <ScalarProperty Name="HBatteryMpAttachment" ColumnName="HBatteryMpAttachment" />
+                <ScalarProperty Name="HBatteryReliabilityAttachment" ColumnName="HBatteryReliabilityAttachment" />
+                <ScalarProperty Name="HBatteryTrialAttachment" ColumnName="HBatteryTrialAttachment" />
+                <ScalarProperty Name="HBatteryIqcAttachment" ColumnName="HBatteryIqcAttachment" />
+                <ScalarProperty Name="HBatteryMaterialAttachment" ColumnName="HBatteryMaterialAttachment" />
+                <ScalarProperty Name="HBatteryPackingDelayReason" ColumnName="HBatteryPackingDelayReason" />
+                <ScalarProperty Name="HBatteryAgingDelayReason" ColumnName="HBatteryAgingDelayReason" />
+                <ScalarProperty Name="HBatteryMpDelayReason" ColumnName="HBatteryMpDelayReason" />
+                <ScalarProperty Name="HBatteryReliabilityDelayReason" ColumnName="HBatteryReliabilityDelayReason" />
+                <ScalarProperty Name="HBatteryTrialDelayReason" ColumnName="HBatteryTrialDelayReason" />
+                <ScalarProperty Name="HBatteryIqcDelayReason" ColumnName="HBatteryIqcDelayReason" />
+                <ScalarProperty Name="HBatteryMaterialDelayReason" ColumnName="HBatteryMaterialDelayReason" />
+                <ScalarProperty Name="HandsetBatteryId" ColumnName="HandsetBatteryId" />
+                <ScalarProperty Name="PlanId" ColumnName="PlanId" />
+                <ScalarProperty Name="ProjectMasterID" ColumnName="ProjectMasterID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="PoCategory" ColumnName="PoCategory" />
+                <ScalarProperty Name="MaterialReceive_SDate_Auto" ColumnName="MaterialReceive_SDate_Auto" />
+                <ScalarProperty Name="MaterialReceive_EDate_Auto" ColumnName="MaterialReceive_EDate_Auto" />
+                <ScalarProperty Name="MaterialReceive_SDate_Manual" ColumnName="MaterialReceive_SDate_Manual" />
+                <ScalarProperty Name="MaterialReceive_EDate_Manual" ColumnName="MaterialReceive_EDate_Manual" />
+                <ScalarProperty Name="Iqc_SDate_Auto" ColumnName="Iqc_SDate_Auto" />
+                <ScalarProperty Name="Iqc_EDate_Auto" ColumnName="Iqc_EDate_Auto" />
+                <ScalarProperty Name="Iqc_SDate_Manual" ColumnName="Iqc_SDate_Manual" />
+                <ScalarProperty Name="Iqc_EDate_Manual" ColumnName="Iqc_EDate_Manual" />
+                <ScalarProperty Name="Trial_SDate_Auto" ColumnName="Trial_SDate_Auto" />
+                <ScalarProperty Name="Trial_EDate_Auto" ColumnName="Trial_EDate_Auto" />
+                <ScalarProperty Name="Trial_SDate_Manual" ColumnName="Trial_SDate_Manual" />
+                <ScalarProperty Name="Trial_EDate_Manual" ColumnName="Trial_EDate_Manual" />
+                <ScalarProperty Name="ReliabilityTest_SDate_Auto" ColumnName="ReliabilityTest_SDate_Auto" />
+                <ScalarProperty Name="ReliabilityTest_EDate_Auto" ColumnName="ReliabilityTest_EDate_Auto" />
+                <ScalarProperty Name="ReliabilityTest_SDate_Manual" ColumnName="ReliabilityTest_SDate_Manual" />
+                <ScalarProperty Name="ReliabilityTest_EDate_Manual" ColumnName="ReliabilityTest_EDate_Manual" />
+                <ScalarProperty Name="MassProduction_SDate_Auto" ColumnName="MassProduction_SDate_Auto" />
+                <ScalarProperty Name="MassProduction_EDate_Auto" ColumnName="MassProduction_EDate_Auto" />
+                <ScalarProperty Name="MassProduction_SDate_Manual" ColumnName="MassProduction_SDate_Manual" />
+                <ScalarProperty Name="MassProduction_EDate_Manual" ColumnName="MassProduction_EDate_Manual" />
+                <ScalarProperty Name="AgingTest_SDate_Auto" ColumnName="AgingTest_SDate_Auto" />
+                <ScalarProperty Name="AgingTest_EDate_Auto" ColumnName="AgingTest_EDate_Auto" />
+                <ScalarProperty Name="AgingTest_SDate_Manual" ColumnName="AgingTest_SDate_Manual" />
+                <ScalarProperty Name="AgingTest_EDate_Manual" ColumnName="AgingTest_EDate_Manual" />
+                <ScalarProperty Name="Packing_SDate_Auto" ColumnName="Packing_SDate_Auto" />
+                <ScalarProperty Name="Packing_EDate_Auto" ColumnName="Packing_EDate_Auto" />
+                <ScalarProperty Name="Packing_SDate_Manual" ColumnName="Packing_SDate_Manual" />
+                <ScalarProperty Name="Packing_EDate_Manual" ColumnName="Packing_EDate_Manual" />
+                <ScalarProperty Name="TotalOrderQuantity" ColumnName="TotalOrderQuantity" />
+                <ScalarProperty Name="HandsetBatteryStatus" ColumnName="HandsetBatteryStatus" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MaterialRules" ColumnName="MaterialRules" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_HandsetHousing">
+            <EntityTypeMapping TypeName="PPMSModel.Pro_HandsetHousing">
+              <MappingFragment StoreEntitySet="Pro_HandsetHousing">
+                <ScalarProperty Name="HHousingMpAttachment" ColumnName="HHousingMpAttachment" />
+                <ScalarProperty Name="HHousingReliabilityAttachment" ColumnName="HHousingReliabilityAttachment" />
+                <ScalarProperty Name="HHousingTrialAttachment" ColumnName="HHousingTrialAttachment" />
+                <ScalarProperty Name="HHousingIqcAttachment" ColumnName="HHousingIqcAttachment" />
+                <ScalarProperty Name="HHousingMaterialAttachment" ColumnName="HHousingMaterialAttachment" />
+                <ScalarProperty Name="HHousingPackingDelayReason" ColumnName="HHousingPackingDelayReason" />
+                <ScalarProperty Name="HHousingMpDelayReason" ColumnName="HHousingMpDelayReason" />
+                <ScalarProperty Name="HHousingReliabilityDelayReason" ColumnName="HHousingReliabilityDelayReason" />
+                <ScalarProperty Name="HHousingTrialDelayReason" ColumnName="HHousingTrialDelayReason" />
+                <ScalarProperty Name="HHousingIqcDelayReason" ColumnName="HHousingIqcDelayReason" />
+                <ScalarProperty Name="HHousingMaterialDelayReason" ColumnName="HHousingMaterialDelayReason" />
+                <ScalarProperty Name="HandsetHousingId" ColumnName="HandsetHousingId" />
+                <ScalarProperty Name="PlanId" ColumnName="PlanId" />
+                <ScalarProperty Name="ProjectMasterID" ColumnName="ProjectMasterID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="PoCategory" ColumnName="PoCategory" />
+                <ScalarProperty Name="MaterialReceive_SDate_Auto" ColumnName="MaterialReceive_SDate_Auto" />
+                <ScalarProperty Name="MaterialReceive_EDate_Auto" ColumnName="MaterialReceive_EDate_Auto" />
+                <ScalarProperty Name="MaterialReceive_SDate_Manual" ColumnName="MaterialReceive_SDate_Manual" />
+                <ScalarProperty Name="MaterialReceive_EDate_Manual" ColumnName="MaterialReceive_EDate_Manual" />
+                <ScalarProperty Name="Iqc_SDate_Auto" ColumnName="Iqc_SDate_Auto" />
+                <ScalarProperty Name="Iqc_EDate_Auto" ColumnName="Iqc_EDate_Auto" />
+                <ScalarProperty Name="Iqc_SDate_Manual" ColumnName="Iqc_SDate_Manual" />
+                <ScalarProperty Name="Iqc_EDate_Manual" ColumnName="Iqc_EDate_Manual" />
+                <ScalarProperty Name="Trial_SDate_Auto" ColumnName="Trial_SDate_Auto" />
+                <ScalarProperty Name="Trial_EDate_Auto" ColumnName="Trial_EDate_Auto" />
+                <ScalarProperty Name="Trial_SDate_Manual" ColumnName="Trial_SDate_Manual" />
+                <ScalarProperty Name="Trial_EDate_Manual" ColumnName="Trial_EDate_Manual" />
+                <ScalarProperty Name="ReliabilityTest_SDate_Auto" ColumnName="ReliabilityTest_SDate_Auto" />
+                <ScalarProperty Name="ReliabilityTest_EDate_Auto" ColumnName="ReliabilityTest_EDate_Auto" />
+                <ScalarProperty Name="ReliabilityTest_SDate_Manual" ColumnName="ReliabilityTest_SDate_Manual" />
+                <ScalarProperty Name="ReliabilityTest_EDate_Manual" ColumnName="ReliabilityTest_EDate_Manual" />
+                <ScalarProperty Name="MassProduction_SDate_Auto" ColumnName="MassProduction_SDate_Auto" />
+                <ScalarProperty Name="MassProduction_EDate_Auto" ColumnName="MassProduction_EDate_Auto" />
+                <ScalarProperty Name="MassProduction_SDate_Manual" ColumnName="MassProduction_SDate_Manual" />
+                <ScalarProperty Name="MassProduction_EDate_Manual" ColumnName="MassProduction_EDate_Manual" />
+                <ScalarProperty Name="Packing_SDate_Auto" ColumnName="Packing_SDate_Auto" />
+                <ScalarProperty Name="Packing_EDate_Auto" ColumnName="Packing_EDate_Auto" />
+                <ScalarProperty Name="Packing_SDate_Manual" ColumnName="Packing_SDate_Manual" />
+                <ScalarProperty Name="Packing_EDate_Manual" ColumnName="Packing_EDate_Manual" />
+                <ScalarProperty Name="TotalOrderQuantity" ColumnName="TotalOrderQuantity" />
+                <ScalarProperty Name="HandsetHousingStatus" ColumnName="HandsetHousingStatus" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MaterialRules" ColumnName="MaterialRules" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_HandsetSmt">
+            <EntityTypeMapping TypeName="PPMSModel.Pro_HandsetSmt">
+              <MappingFragment StoreEntitySet="Pro_HandsetSmt">
+                <ScalarProperty Name="HandsetMpAttachment" ColumnName="HandsetMpAttachment" />
+                <ScalarProperty Name="HandsetTrialAttachment" ColumnName="HandsetTrialAttachment" />
+                <ScalarProperty Name="HandsetIqcAttachment" ColumnName="HandsetIqcAttachment" />
+                <ScalarProperty Name="HandsetSmtAttachment" ColumnName="HandsetSmtAttachment" />
+                <ScalarProperty Name="HandsetPackingDelayReason" ColumnName="HandsetPackingDelayReason" />
+                <ScalarProperty Name="HandsetMpDelayReason" ColumnName="HandsetMpDelayReason" />
+                <ScalarProperty Name="HandsetTrialDelayReason" ColumnName="HandsetTrialDelayReason" />
+                <ScalarProperty Name="HandsetIqcDelayReason" ColumnName="HandsetIqcDelayReason" />
+                <ScalarProperty Name="HandsetSmtDelayReason" ColumnName="HandsetSmtDelayReason" />
+                <ScalarProperty Name="HandsetSmtId" ColumnName="HandsetSmtId" />
+                <ScalarProperty Name="PlanId" ColumnName="PlanId" />
+                <ScalarProperty Name="ProjectMasterID" ColumnName="ProjectMasterID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="PoCategory" ColumnName="PoCategory" />
+                <ScalarProperty Name="MaterialReceive_SDate_Auto" ColumnName="MaterialReceive_SDate_Auto" />
+                <ScalarProperty Name="MaterialReceive_EDate_Auto" ColumnName="MaterialReceive_EDate_Auto" />
+                <ScalarProperty Name="MaterialReceive_SDate_Manual" ColumnName="MaterialReceive_SDate_Manual" />
+                <ScalarProperty Name="MaterialReceive_EDate_Manual" ColumnName="MaterialReceive_EDate_Manual" />
+                <ScalarProperty Name="Iqc_SDate_Auto" ColumnName="Iqc_SDate_Auto" />
+                <ScalarProperty Name="Iqc_EDate_Auto" ColumnName="Iqc_EDate_Auto" />
+                <ScalarProperty Name="Iqc_SDate_Manual" ColumnName="Iqc_SDate_Manual" />
+                <ScalarProperty Name="Iqc_EDate_Manual" ColumnName="Iqc_EDate_Manual" />
+                <ScalarProperty Name="Trial_SDate_Auto" ColumnName="Trial_SDate_Auto" />
+                <ScalarProperty Name="Trial_EDate_Auto" ColumnName="Trial_EDate_Auto" />
+                <ScalarProperty Name="Trial_SDate_Manual" ColumnName="Trial_SDate_Manual" />
+                <ScalarProperty Name="Trial_EDate_Manual" ColumnName="Trial_EDate_Manual" />
+                <ScalarProperty Name="MassProduction_SDate_Auto" ColumnName="MassProduction_SDate_Auto" />
+                <ScalarProperty Name="MassProduction_EDate_Auto" ColumnName="MassProduction_EDate_Auto" />
+                <ScalarProperty Name="MassProduction_SDate_Manual" ColumnName="MassProduction_SDate_Manual" />
+                <ScalarProperty Name="MassProduction_EDate_Manual" ColumnName="MassProduction_EDate_Manual" />
+                <ScalarProperty Name="Packing_SDate_Auto" ColumnName="Packing_SDate_Auto" />
+                <ScalarProperty Name="Packing_EDate_Auto" ColumnName="Packing_EDate_Auto" />
+                <ScalarProperty Name="Packing_SDate_Manual" ColumnName="Packing_SDate_Manual" />
+                <ScalarProperty Name="Packing_EDate_Manual" ColumnName="Packing_EDate_Manual" />
+                <ScalarProperty Name="TotalOrderQuantity" ColumnName="TotalOrderQuantity" />
+                <ScalarProperty Name="HandsetSmtStatus" ColumnName="HandsetSmtStatus" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MaterialRules" ColumnName="MaterialRules" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_Line">
+            <EntityTypeMapping TypeName="PPMSModel.Pro_Line">
+              <MappingFragment StoreEntitySet="Pro_Line">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductionType" ColumnName="ProductionType" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="LineType" ColumnName="LineType" />
+                <ScalarProperty Name="ProductionDaysPerMonth" ColumnName="ProductionDaysPerMonth" />
+                <ScalarProperty Name="HoursPerShift" ColumnName="HoursPerShift" />
+                <ScalarProperty Name="ShiftPerDay" ColumnName="ShiftPerDay" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_MaterialRules">
+            <EntityTypeMapping TypeName="PPMSModel.Pro_MaterialRules">
+              <MappingFragment StoreEntitySet="Pro_MaterialRules">
+                <ScalarProperty Name="MaterialRulesId" ColumnName="MaterialRulesId" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="ProductionUnit" ColumnName="ProductionUnit" />
+                <ScalarProperty Name="TypeOfWork" ColumnName="TypeOfWork" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+                <ScalarProperty Name="ProductionUnitSerialNo" ColumnName="ProductionUnitSerialNo" />
+                <ScalarProperty Name="MaterialRules" ColumnName="MaterialRules" />
+                <ScalarProperty Name="StartDays" ColumnName="StartDays" />
+                <ScalarProperty Name="EndDays" ColumnName="EndDays" />
+                <ScalarProperty Name="Day_1" ColumnName="Day_1" />
+                <ScalarProperty Name="Day_2" ColumnName="Day_2" />
+                <ScalarProperty Name="Day_3" ColumnName="Day_3" />
+                <ScalarProperty Name="Day_4" ColumnName="Day_4" />
+                <ScalarProperty Name="Day_5" ColumnName="Day_5" />
+                <ScalarProperty Name="Day_6" ColumnName="Day_6" />
+                <ScalarProperty Name="Day_7" ColumnName="Day_7" />
+                <ScalarProperty Name="Day_8" ColumnName="Day_8" />
+                <ScalarProperty Name="Day_9" ColumnName="Day_9" />
+                <ScalarProperty Name="Day_10" ColumnName="Day_10" />
+                <ScalarProperty Name="Day_11" ColumnName="Day_11" />
+                <ScalarProperty Name="Day_12" ColumnName="Day_12" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_PlanTable">
+            <EntityTypeMapping TypeName="PPMSModel.Pro_PlanTable">
+              <MappingFragment StoreEntitySet="Pro_PlanTable">
+                <ScalarProperty Name="PlanId" ColumnName="PlanId" />
+                <ScalarProperty Name="ProjectMasterID" ColumnName="ProjectMasterID" />
+                <ScalarProperty Name="IsCharger" ColumnName="IsCharger" />
+                <ScalarProperty Name="IsHandset" ColumnName="IsHandset" />
+                <ScalarProperty Name="IsEarphone" ColumnName="IsEarphone" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_Product">
+            <EntityTypeMapping TypeName="PPMSModel.Pro_Product">
+              <MappingFragment StoreEntitySet="Pro_Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductionType" ColumnName="ProductionType" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductFamily" ColumnName="ProductFamily" />
+                <ScalarProperty Name="ChangeOverTime" ColumnName="ChangeOverTime" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_Shift">
+            <EntityTypeMapping TypeName="PPMSModel.Pro_Shift">
+              <MappingFragment StoreEntitySet="Pro_Shift">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductionType" ColumnName="ProductionType" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="MonNum" ColumnName="MonNum" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="Shift_1" ColumnName="Shift_1" />
+                <ScalarProperty Name="Shift_2" ColumnName="Shift_2" />
+                <ScalarProperty Name="Shift_3" ColumnName="Shift_3" />
+                <ScalarProperty Name="Shift_4" ColumnName="Shift_4" />
+                <ScalarProperty Name="Shift_5" ColumnName="Shift_5" />
+                <ScalarProperty Name="Shift_6" ColumnName="Shift_6" />
+                <ScalarProperty Name="Shift_7" ColumnName="Shift_7" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_Team">
+            <EntityTypeMapping TypeName="PPMSModel.Pro_Team">
+              <MappingFragment StoreEntitySet="Pro_Team">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Team" ColumnName="Team" />
+                <ScalarProperty Name="ProductionType" ColumnName="ProductionType" />
+                <ScalarProperty Name="PhoneType" ColumnName="PhoneType" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_Type">
+            <EntityTypeMapping TypeName="PPMSModel.Pro_Type">
+              <MappingFragment StoreEntitySet="Pro_Type">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductionType" ColumnName="ProductionType" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectCategorizations">
+            <EntityTypeMapping TypeName="PPMSModel.ProjectCategorization">
+              <MappingFragment StoreEntitySet="ProjectCategorization">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Added" ColumnName="Added" />
+                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
+                <ScalarProperty Name="HousingCategory" ColumnName="HousingCategory" />
+                <ScalarProperty Name="SmtCategory" ColumnName="SmtCategory" />
+                <ScalarProperty Name="AssemblyCategory" ColumnName="AssemblyCategory" />
+                <ScalarProperty Name="ProductFamily" ColumnName="ProductFamily" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
